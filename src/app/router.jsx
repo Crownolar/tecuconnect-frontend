@@ -1,27 +1,43 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import AuthGateway from "@/features/auth/pages/AuthGateway";
-import StudentLayout from "@/layouts/StudentLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import StudentLayout from "../layouts/StudentLayout";
 
-import StudentDashboard from "@/features/student/dashboard/StudentDashboard";
-import MyJourney from "@/features/student/journey/MyJourney";
+import AuthGateway from "../features/auth/pages/AuthGateway";
 
-import Milestones from "@/features/student/milestones/pages/Milestones";
-import ClaimMilestone from "@/features/student/milestones/pages/ClaimMilestone";
+import StudentDashboard from "../features/student/dashboard/StudentDashboard";
+import MyJourney from "../features/student/journey/MyJourney";
 
-export const Placeholder = ({ title }) => (
+import Milestones from "../features/student/milestones/pages/Milestones";
+import ClaimMilestone from "../features/student/milestones/pages/ClaimMilestone";
+
+const Placeholder = ({ title }) => (
   <div>
-    <h1 className="text-2xl font-bold">{title}</h1>
+    <h1 className="text-2xl font-bold text-text-primary">
+      {title}
+    </h1>
+
     <p className="mt-2 text-text-secondary">
       This page is under development.
     </p>
   </div>
 );
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <AuthGateway />,
+    element: <Navigate to="/auth" replace />,
+  },
+
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <AuthGateway />,
+      },
+    ],
   },
 
   {
@@ -30,36 +46,50 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <StudentDashboard />,
+        element: <Navigate to="dashboard" replace />,
       },
+
       {
         path: "dashboard",
         element: <StudentDashboard />,
       },
+
       {
         path: "journey",
         element: <MyJourney />,
       },
+
       {
         path: "milestones",
         element: <Milestones />,
       },
+
       {
         path: "milestones/claim",
         element: <ClaimMilestone />,
       },
+
       {
         path: "mentorship",
         element: <Placeholder title="Mentorship" />,
       },
+
       {
         path: "notifications",
         element: <Placeholder title="Notifications" />,
       },
+
       {
         path: "profile",
         element: <Placeholder title="Profile" />,
       },
     ],
   },
+
+  {
+    path: "*",
+    element: <Navigate to="/auth" replace />,
+  },
 ]);
+
+export default router;
