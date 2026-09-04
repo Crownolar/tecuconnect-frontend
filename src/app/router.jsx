@@ -11,6 +11,8 @@ import MyJourney from "../features/student/journey/MyJourney";
 import Milestones from "../features/student/milestones/pages/Milestones";
 import ClaimMilestone from "../features/student/milestones/pages/ClaimMilestone";
 
+import Mentorship from "../features/student/mentorship/pages/Mentorship";
+
 const Placeholder = ({ title }) => (
   <div>
     <h1 className="text-2xl font-bold text-text-primary">
@@ -71,7 +73,8 @@ const router = createBrowserRouter([
 
       {
         path: "mentorship",
-        element: <Placeholder title="Mentorship" />,
+        element: <Mentorship />,
+        // element: <Placeholder title="Mentorship" />,
       },
 
       {
