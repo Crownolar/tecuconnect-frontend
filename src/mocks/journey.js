@@ -57,4 +57,22 @@ export const journey = {
       progress: 76,
     },
   ],
+
+  achievements: [
+    {
+      id: 1,
+      title: "Built Functional Prototype",
+      date: "Aug 28",
+    },
+    {
+      id: 2,
+      title: "Business Model Canvas",
+      date: "Aug 15",
+    },
+    {
+      id: 3,
+      title: "Pitch Presentation Delivered",
+      date: "Jul 30",
+    },
+  ],
 };
