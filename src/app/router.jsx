@@ -12,23 +12,20 @@ import Milestones from "../features/student/milestones/pages/Milestones";
 import ClaimMilestone from "../features/student/milestones/pages/ClaimMilestone";
 
 import Mentorship from "../features/student/mentorship/pages/Mentorship";
+import Notification from "@/features/student/notifications/pages/Notifications";
 
 const Placeholder = ({ title }) => (
   <div>
-    <h1 className="text-2xl font-bold text-text-primary">
-      {title}
-    </h1>
+    <h1 className='text-2xl font-bold text-text-primary'>{title}</h1>
 
-    <p className="mt-2 text-text-secondary">
-      This page is under development.
-    </p>
+    <p className='mt-2 text-text-secondary'>This page is under development.</p>
   </div>
 );
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/auth" replace />,
+    element: <Navigate to='/auth' replace />,
   },
 
   {
@@ -48,7 +45,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="dashboard" replace />,
+        element: <Navigate to='dashboard' replace />,
       },
 
       {
@@ -79,19 +76,19 @@ const router = createBrowserRouter([
 
       {
         path: "notifications",
-        element: <Placeholder title="Notifications" />,
+        element: <Notification title='Notifications' />,
       },
 
       {
         path: "profile",
-        element: <Placeholder title="Profile" />,
+        element: <Placeholder title='Profile' />,
       },
     ],
   },
 
   {
     path: "*",
-    element: <Navigate to="/auth" replace />,
+    element: <Navigate to='/auth' replace />,
   },
 ]);
 
