@@ -13,6 +13,7 @@ import ClaimMilestone from "../features/student/milestones/pages/ClaimMilestone"
 
 import Mentorship from "../features/student/mentorship/pages/Mentorship";
 import Notification from "@/features/student/notifications/pages/Notifications";
+import Profile from "@/features/student/profile/pages/Profile";
 
 const Placeholder = ({ title }) => (
   <div>
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
 
       {
         path: "profile",
-        element: <Placeholder title='Profile' />,
+        element: <Profile title='Profile' />,
       },
     ],
   },
