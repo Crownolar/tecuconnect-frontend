@@ -26,7 +26,7 @@ export default function JourneyTracker({
         </p>
       </div>
 
-      <div className="flex w-full items-center justify-between gap-2">
+      <div className="flex w-full items-center justify-between gap-[4px]">
         {stages.map((stage, index) => (
           <Fragment key={`${stage.level}-${stage.name}`}>
             <div

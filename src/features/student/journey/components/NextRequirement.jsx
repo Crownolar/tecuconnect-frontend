@@ -8,20 +8,20 @@ export default function NextRequirement({ progress, nextLevel }) {
       className="w-full rounded-xl border-[#e2e8f0] bg-white p-6 shadow-none"
     >
       <div className="mb-5 flex items-center justify-between gap-4">
-        <p className="text-[12px] font-semibold leading-normal text-[#0a3b25]">
+        <p className="text-[12px] font-bold leading-normal text-[#0a3b25]">
           Progress to Next Level
         </p>
 
         <p>
-          Target: <span className="text-[12px] font-semibold text-[#53657D]">Target:</span> <span className="text-[14px] font-normal text-[#0a3b25]">{nextLevel.name}</span>
+          Target: <span className="text-[14px] font-normal text-[#0a3b25]">{nextLevel.name}</span>
         </p>
       </div>
 
       <div className="mb-[8.904px] flex items-baseline gap-2">
-        <p className="text-[16px] font-semibold leading-normal text-[#0a3b25]">
+        <p className="text-[16px] font-bold leading-normal text-[#0a3b25]">
           {progress}%
         </p>
-        <span className="text-[14px] font-normal leading-normal text-[#0a3b25]">
+        <span className="text-[14px] font-bold leading-normal text-[#0a3b25]">
           Complete
         </span>
       </div>
