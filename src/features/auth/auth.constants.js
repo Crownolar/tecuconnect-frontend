@@ -1,0 +1,1 @@
+export const AUTH_STORAGE_KEY = "tec_trak_user";

@@ -10,6 +10,7 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const currentUser = authService.getCurrentUser();
@@ -17,20 +18,18 @@ export const AuthProvider = ({ children }) => {
     if (currentUser) {
       setUser(currentUser);
     }
+
+    setIsLoading(false);
   }, []);
 
   const login = (userData) => {
-    localStorage.setItem(
-      "tecuconnect_user",
-      JSON.stringify(userData)
-    );
+    const authenticatedUser = authService.login(userData);
 
-    setUser(userData);
+    setUser(authenticatedUser);
   };
 
   const logout = () => {
     authService.logout();
-
     setUser(null);
   };
 
@@ -40,6 +39,8 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         logout,
+        isLoading,
+        isAuthenticated: Boolean(user),
       }}
     >
       {children}

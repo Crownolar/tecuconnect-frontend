@@ -1,38 +1,47 @@
 @import "tailwindcss";
 
 @theme {
+  /* Brand */
   --color-primary: #092E1A;
-  /* --color-primary: #123d2c; */
   --color-primary-dark: #0d3022;
   --color-primary-light: #e8f3ee;
 
   --color-accent: #27a37c;
   --color-accent-light: #e6f7f0;
 
+  /* UI */
   --color-background: #f7f8fa;
   --color-surface: #ffffff;
-
   --color-text-primary: #1f2937;
   --color-text-secondary: #6b7280;
   --color-border: #e5e7eb;
 
+  /* Radius */
   --radius-card: 12px;
   --radius-button: 8px;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+html {
   min-height: 100%;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
   background: var(--color-background);
   color: var(--color-text-primary);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
 }

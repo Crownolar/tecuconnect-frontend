@@ -1,77 +1,41 @@
 export const profileData = {
-  id: "student-001",
-
-  name: "Yusuf Abdulrahman",
-
   initials: "YA",
-
+  name: "Yusuf Abdulrahman",
   role: "TEC Fellow",
-
-  matricNumber: "20/52EP045",
-
-  department: "Electrical & Electronics Engineering",
-
-  faculty: "Engineering & Technology",
-
-  level: "400 Level",
-
+  matricNumber: "20/52HA000",
+  department: "Computer Science",
+  level: "300 Level",
   email: "yusuf.abdulrahman@student.unilorin.edu.ng",
 
-  dateOfBirth: "March 15, 2003",
-
-  phoneNumber: "+234 812 345 6789",
-
-  yearOfEntry: "2020",
+  phoneNumber: "08000000000",
+  dateOfBirth: "01 January 2004",
+  faculty: "Information and Communication Sciences",
+  yearOfEntry: "2023",
 
   skills: [
-    "Embedded Systems",
-    "IoT",
-    "Product Design",
-    "Renewable Energy",
-    "Startup Strategy",
-    "Mobile Development",
-    "AI/ML",
+    "JavaScript",
+    "React",
+    "UI/UX",
+    "Entrepreneurship",
   ],
 
   journey: {
-    currentLevel: "Level 4 — Practising",
-
-    stage: "Active Stage",
-
-    progress: 72,
+    currentLevel: "Practicing",
+    progress: 68,
 
     milestonesAchieved: {
-      completed: 5,
-      total: 8,
+      completed: 8,
+      total: 12,
     },
 
     mentorshipSessions: {
       completed: 6,
     },
 
-    teisScore: "72.4/100",
+    teisScore: 82,
   },
 
   accountSettings: [
-    {
-      id: "notifications",
-      title: "Notification Preferences",
-      description: "Email & In-App",
-      action: "Change",
-    },
-
-    {
-      id: "security",
-      title: "Password & Security",
-      description: "Last changed 45 days ago",
-      action: "Update",
-    },
-
-    {
-      id: "accounts",
-      title: "Connected Accounts",
-      description: "Google Account linked",
-      action: "Manage",
-    },
+    // existing settings
   ],
 };

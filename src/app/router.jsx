@@ -4,6 +4,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import StudentLayout from "../layouts/StudentLayout";
 
 import AuthGateway from "../features/auth/pages/AuthGateway";
+import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
 import StudentDashboard from "../features/student/dashboard/StudentDashboard";
 import MyJourney from "../features/student/journey/MyJourney";
@@ -15,18 +16,10 @@ import Mentorship from "../features/student/mentorship/pages/Mentorship";
 import Notification from "@/features/student/notifications/pages/Notifications";
 import Profile from "@/features/student/profile/pages/Profile";
 
-const Placeholder = ({ title }) => (
-  <div>
-    <h1 className='text-2xl font-bold text-text-primary'>{title}</h1>
-
-    <p className='mt-2 text-text-secondary'>This page is under development.</p>
-  </div>
-);
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to='/auth' replace />,
+    element: <Navigate to="/auth" replace />,
   },
 
   {
@@ -42,54 +35,51 @@ const router = createBrowserRouter([
 
   {
     path: "/student",
-    element: <StudentLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        index: true,
-        element: <Navigate to='dashboard' replace />,
-      },
-
-      {
-        path: "dashboard",
-        element: <StudentDashboard />,
-      },
-
-      {
-        path: "journey",
-        element: <MyJourney />,
-      },
-
-      {
-        path: "milestones",
-        element: <Milestones />,
-      },
-
-      {
-        path: "milestones/claim",
-        element: <ClaimMilestone />,
-      },
-
-      {
-        path: "mentorship",
-        element: <Mentorship />,
-        // element: <Placeholder title="Mentorship" />,
-      },
-
-      {
-        path: "notifications",
-        element: <Notification title='Notifications' />,
-      },
-
-      {
-        path: "profile",
-        element: <Profile title='Profile' />,
+        element: <StudentLayout />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="dashboard" replace />,
+          },
+          {
+            path: "dashboard",
+            element: <StudentDashboard />,
+          },
+          {
+            path: "journey",
+            element: <MyJourney />,
+          },
+          {
+            path: "milestones",
+            element: <Milestones />,
+          },
+          {
+            path: "milestones/claim",
+            element: <ClaimMilestone />,
+          },
+          {
+            path: "mentorship",
+            element: <Mentorship />,
+          },
+          {
+            path: "notifications",
+            element: <Notification />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
     ],
   },
 
   {
     path: "*",
-    element: <Navigate to='/auth' replace />,
+    element: <Navigate to="/auth" replace />,
   },
 ]);
 
