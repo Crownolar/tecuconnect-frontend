@@ -6,7 +6,6 @@ import AppHeader from "../components/shared/AppHeader";
 
 export default function StudentLayout() {
   const location = useLocation();
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

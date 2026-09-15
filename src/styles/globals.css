@@ -5,7 +5,6 @@
   --color-primary: #092E1A;
   --color-primary-dark: #0d3022;
   --color-primary-light: #e8f3ee;
-
   --color-accent: #27a37c;
   --color-accent-light: #e6f7f0;
 
@@ -30,6 +29,7 @@
 
 html {
   min-height: 100%;
+  scrollbar-width: none;
 }
 
 body {
@@ -44,4 +44,14 @@ body {
 
 #root {
   min-height: 100vh;
+}
+
+/* Hide scrollbars while preserving scrolling */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
