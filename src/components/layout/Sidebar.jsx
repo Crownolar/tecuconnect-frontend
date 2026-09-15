@@ -103,7 +103,7 @@ export default function Sidebar({ open, onClose }) {
               {/* Brand name */}
               <div className="min-w-0">
                 <h1 className="truncate text-sm font-bold tracking-wide">
-                  TECuCONNECT
+                  TEC-TRAK
                 </h1>
 
                 <p className="text-[9px] font-semibold tracking-widest text-lime-300">

@@ -1,28 +1,42 @@
 const AuthBrandPanel = () => {
   return (
-    <section className="relative hidden min-h-screen flex-col justify-between bg-primary p-10 text-white lg:flex">
-      
-      {/* Logo */}
+    <section
+      className="
+        relative flex
+        min-h-0 flex-col
+        bg-primary px-6 py-6 text-white
+        lg:min-h-screen lg:justify-between lg:p-10
+      "
+    >
+      {/* =========================================
+          LOGO / BRAND
+          ========================================= */}
       <div>
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-primary">
-            <span className="font-bold">T</span>
+          {/* Logo */}
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-primary lg:h-10 lg:w-10">
+            <span className="font-bold">
+              T
+            </span>
           </div>
 
-          <div>
-            <h2 className="text-lg font-bold tracking-wide">
-              TECuCONNECT
+          {/* Brand */}
+          <div className="min-w-0">
+            <h2 className="truncate text-base font-bold tracking-wide lg:text-lg">
+              TEC-TRAK
             </h2>
 
-            <p className="text-[10px] uppercase tracking-widest text-secondary">
+            <p className="text-[9px] uppercase tracking-widest text-secondary lg:text-[10px]">
               UNILORIN TEC
             </p>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-md">
+      {/* =========================================
+          MAIN CONTENT
+          ========================================= */}
+      <div className="mt-8 hidden max-w-md lg:block lg:mt-0">
         <h1 className="text-4xl font-bold leading-tight">
           Nurturing the Next
           <br />
@@ -30,14 +44,13 @@ const AuthBrandPanel = () => {
         </h1>
 
         <p className="mt-5 text-sm leading-7 text-white/70">
-          The University of Ilorin Technology Entrepreneurship Centre
-          connects academic rigor with real-world venture creation,
-          competency tracking, and mentorship.
+          The University of Ilorin Technology Entrepreneurship
+          Centre connects academic rigor with real-world venture
+          creation, competency tracking, and mentorship.
         </p>
 
         {/* Ecosystem Card */}
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5">
-          
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-secondary">
               ● Live Ecosystem Nodes
@@ -52,28 +65,37 @@ const AuthBrandPanel = () => {
 
           {/* Fake graph */}
           <div className="relative h-20">
-            <div className="absolute left-6 top-4 h-px w-52 rotate-10deg bg-secondary" />
+            <div className="absolute left-6 top-4 h-px w-52 rotate-[10deg] bg-secondary" />
 
-            <div className="absolute left-16 top-10 h-px w-52 rotate-14deg bg-secondary" />
+            <div className="absolute left-16 top-10 h-px w-52 rotate-[14deg] bg-secondary" />
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-4">
             <div>
-              <h3 className="font-bold">1,250+</h3>
+              <h3 className="font-bold">
+                1,250+
+              </h3>
+
               <p className="mt-1 text-[10px] text-white/50">
                 Active Ventures
               </p>
             </div>
 
             <div>
-              <h3 className="font-bold">₦45M+</h3>
+              <h3 className="font-bold">
+                ₦45M+
+              </h3>
+
               <p className="mt-1 text-[10px] text-white/50">
                 Sustained Funding
               </p>
             </div>
 
             <div>
-              <h3 className="font-bold">12</h3>
+              <h3 className="font-bold">
+                12
+              </h3>
+
               <p className="mt-1 text-[10px] text-white/50">
                 Competencies
               </p>
@@ -82,13 +104,22 @@ const AuthBrandPanel = () => {
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="flex items-center justify-between text-xs text-white/40">
-        <span>TEC © 2026</span>
+      {/* =========================================
+          BOTTOM
+          ========================================= */}
+      <div className="mt-8 hidden items-center justify-between text-xs text-white/40 lg:flex">
+        <span>
+          TEC © 2026
+        </span>
 
         <div className="flex gap-5">
-          <span>Unilorin Portal</span>
-          <span>Support</span>
+          <span>
+            Unilorin Portal
+          </span>
+
+          <span>
+            Support
+          </span>
         </div>
       </div>
     </section>
