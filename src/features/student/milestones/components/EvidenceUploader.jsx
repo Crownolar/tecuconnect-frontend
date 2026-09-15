@@ -108,7 +108,8 @@ export default function EvidenceUploader({ onBack, onContinue }) {
           <Button
             type="button"
             onClick={onBack}
-            className="p-0! text-lg font-semibold text-slate-600 transition hover:text-slate-900"
+            variant="ghost"
+            className="p-0! text-lg font-semibold text-slate-900 transition hover:text-slate-700"
           >
             Back
           </Button>
@@ -116,7 +117,8 @@ export default function EvidenceUploader({ onBack, onContinue }) {
           <div className="flex items-center gap-6">
             <Button
               type="button"
-              className="p-0! text-lg font-semibold text-slate-600 transition hover:text-slate-900"
+              variant="ghost"
+              className="p-0! text-lg font-semibold text-slate-900 transition hover:text-slate-700"
             >
               Save Draft
             </Button>

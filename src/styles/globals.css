@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #092E1A;
+  --color-primary: #092e1a;
   /* --color-primary: #123d2c; */
   --color-primary-dark: #0d3022;
   --color-primary-light: #e8f3ee;
@@ -35,4 +35,17 @@ body {
   background: var(--color-background);
   color: var(--color-text-primary);
   font-family: Inter, system-ui, sans-serif;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

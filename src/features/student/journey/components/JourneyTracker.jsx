@@ -17,11 +17,11 @@ export default function JourneyTracker({
       className="w-full rounded-xl border-[#e2e8f0] bg-white p-6 shadow-none"
     >
       <div className="mb-5 flex items-center justify-between gap-4">
-        <h3 className="text-[15px] font-bold text-[#142033]">
+        <h3 className="text-[16px] font-semibold text-[#142033]">
           Entrepreneurial Journey Tracker
         </h3>
 
-        <p className="text-[13px] text-[#475569]">
+        <p className="text-[14px] text-[#475569]">
           Tracks five stages of startup integration
         </p>
       </div>

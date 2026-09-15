@@ -89,7 +89,7 @@ export default function MilestoneDetails({ onContinue }) {
             <span className="mb-2 block text-base font-semibold text-slate-800">
               Date of Achievement
             </span>
-            <span className="relative block">
+            <span className="relative block max-w-xl">
               <input
                 type="text"
                 defaultValue="August 28, 2026"
@@ -108,7 +108,8 @@ export default function MilestoneDetails({ onContinue }) {
         <div className="mt-auto flex items-center justify-between pt-10">
           <Button
             type="button"
-            className="p-0! text-lg font-semibold text-slate-600 transition hover:text-slate-900"
+            variant="ghost"
+            className="p-0! text-lg font-semibold text-slate-900 transition hover:text-slate-700"
           >
             Save Draft
           </Button>

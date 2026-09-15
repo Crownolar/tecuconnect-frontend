@@ -36,7 +36,7 @@ export default function MilestoneFilters({ milestones }) {
         ))}
       </div>
 
-      <section className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <section className="mt-7 grid grid-cols-1 gap-[23.745px] 2xl:grid-cols-2">
         {filteredMilestones.map((milestone) => (
           <MilestoneCard key={milestone.id} {...milestone} />
         ))}

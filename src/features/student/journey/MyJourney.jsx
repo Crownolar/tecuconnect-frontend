@@ -66,7 +66,10 @@ export default function MyJourney() {
           </div>
         </div>
 
-        <Button className="rounded-lg bg-[#0a3b25] px-6 py-3 text-[14px] font-semibold text-white hover:bg-[#082f20]">
+        <Button
+          size="lg"
+          className="whitespace-nowrap rounded-[11.873px] bg-[#0a3b25] font-semibold text-white hover:bg-[#082f20]"
+        >
           Start Assessment →
         </Button>
       </div>

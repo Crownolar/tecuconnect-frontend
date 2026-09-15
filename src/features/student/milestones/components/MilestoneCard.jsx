@@ -36,7 +36,7 @@ export default function MilestoneCard({
   return (
     <Card
       padding="none"
-      className="flex min-h-41.25 flex-col justify-between rounded-2xl border-slate-200 bg-white p-7 shadow-none"
+      className="flex min-h-[165.471px] flex-col justify-between rounded-[17.809px] border-[1.484px] border-[#e2e8f0] bg-white p-[29.682px] shadow-none"
     >
       <div className="flex items-start justify-between gap-5">
         <div className="flex min-w-0 items-center gap-4">
@@ -47,10 +47,10 @@ export default function MilestoneCard({
           </span>
 
           <div className="min-w-0">
-            <p className="truncate text-[16px] font-semibold uppercase tracking-[0.02em] text-slate-400">
+            <p className="truncate text-[14px] font-normal uppercase tracking-[0.02em] text-slate-400">
               {category}
             </p>
-            <h2 className="truncate text-[24px] font-bold leading-7 text-slate-900">
+            <h2 className="truncate text-[16px] font-semibold leading-7 text-slate-900">
               {title}
             </h2>
           </div>
@@ -60,7 +60,7 @@ export default function MilestoneCard({
       </div>
 
       <div className="flex items-center justify-between gap-4">
-        <p className="text-[18px] text-slate-600">{date}</p>
+        <p className="text-[14px] text-slate-600">{date}</p>
         <button
           type="button"
           onClick={onViewDetails}

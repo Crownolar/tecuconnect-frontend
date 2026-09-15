@@ -24,7 +24,7 @@ export default function Milestones() {
       <div className="space-y-7">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">My Milestones</h1>
+            <h1 className="text-[28px] font-bold text-slate-800">My Milestones</h1>
 
             <p className="mt-1 text-sm text-slate-500">
               Track and manage your entrepreneurial achievements.
@@ -33,8 +33,9 @@ export default function Milestones() {
 
           <Button
             type="button"
+            size="lg"
             onClick={() => navigate("/student/milestones/claim")}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#0a3b25] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#082f20]"
+            className="whitespace-nowrap rounded-[11.873px] font-semibold bg-[#0a3b25] text-white shadow-sm hover:bg-[#082f20]"
           >
             <Plus size={18} />
             Claim Milestone
@@ -43,34 +44,34 @@ export default function Milestones() {
 
         {/* Milestone Summary and Tabs */}
         <div>
-          <div className="flex flex-wrap items-center gap-12 text-[13px] font-medium text-[#475569]">
+          <div className="flex flex-wrap items-center gap-12 text-[13px] font-normal text-[#475569]">
             <div className="flex items-center gap-2 text-[#0f172a]">
-              <span className="font-bold">Total Milestones:</span>
-              <span className="font-bold text-[#0a3b25]">
+              <span className="font-semibold">Total Milestones:</span>
+              <span className="text-[13px] font-normal text-[#0a3b25]">
                 {totalMilestones}
               </span>
             </div>
 
             <div className="flex items-center gap-2 text-[#475569]">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#10b981]" />
-              <span>Verified:</span>
-              <span className="font-semibold text-[#10b981]">
+              <span className="font-semibold">Verified:</span>
+              <span className="text-[13px] font-normal text-[#10b981]">
                 {verifiedCount}
               </span>
             </div>
 
             <div className="flex items-center gap-2 text-[#475569]">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#f59e0b]" />
-              <span>Pending:</span>
-              <span className="font-semibold text-[#f59e0b]">
+              <span className="font-semibold">Pending:</span>
+              <span className="text-[13px] font-normal text-[#f59e0b]">
                 {pendingCount}
               </span>
             </div>
 
             <div className="flex items-center gap-2 text-[#475569]">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#ef4444]" />
-              <span>Needs Changes:</span>
-              <span className="font-semibold text-[#ef4444]">
+              <span className="font-semibold">Needs Changes:</span>
+              <span className="text-[13px] font-normal text-[#ef4444]">
                 {needsChangesCount}
               </span>
             </div>
