@@ -31,40 +31,55 @@ export default function MilestoneCard({
 }) {
   const categoryStyle =
     categoryStyles[category] || categoryStyles.Entrepreneurship;
+
   const Icon = categoryStyle.icon;
 
   return (
     <Card
       padding="none"
-      className="flex min-h-[165.471px] flex-col justify-between rounded-[17.809px] border-[1.484px] border-[#e2e8f0] bg-white p-[29.682px] shadow-none"
+      className="flex min-h-0 w-full flex-col justify-between rounded-xl border border-[#e2e8f0] bg-white p-4 shadow-none sm:min-h-[165px] sm:rounded-[17.809px] sm:p-5 lg:p-6 xl:p-[29.682px]"
     >
-      <div className="flex items-start justify-between gap-5">
-        <div className="flex min-w-0 items-center gap-4">
+      {/* Main Content */}
+      <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-5">
+        {/* Icon + Details */}
+        <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
           <span
-            className={`flex h-15 w-15 shrink-0 items-center justify-center rounded-xl ${categoryStyle.iconClassName}`}
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl sm:h-14 sm:w-14 ${categoryStyle.iconClassName}`}
           >
-            <Icon size={28} strokeWidth={2.25} />
+            <Icon
+              size={24}
+              strokeWidth={2.25}
+              className="sm:h-7 sm:w-7"
+            />
           </span>
 
-          <div className="min-w-0">
-            <p className="truncate text-[14px] font-normal uppercase tracking-[0.02em] text-slate-400">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[11px] font-normal uppercase tracking-[0.02em] text-slate-400 sm:text-[13px] md:text-[14px]">
               {category}
             </p>
-            <h2 className="truncate text-[16px] font-semibold leading-7 text-slate-900">
+
+            <h2 className="break-words text-[14px] font-semibold leading-6 text-slate-900 sm:truncate sm:text-[15px] sm:leading-7 md:text-[16px]">
               {title}
             </h2>
           </div>
         </div>
 
-        <StatusBadge status={status} />
+        {/* Status */}
+        <div className="shrink-0 self-start">
+          <StatusBadge status={status} />
+        </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-[14px] text-slate-600">{date}</p>
+      {/* Footer */}
+      <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:border-t-0 sm:pt-0">
+        <p className="text-[12px] text-slate-600 sm:text-[14px]">
+          {date}
+        </p>
+
         <button
           type="button"
           onClick={onViewDetails}
-          className="shrink-0 text-[18px] font-semibold text-blue-500 transition hover:text-blue-700"
+          className="self-start text-left text-[14px] font-semibold text-blue-500 transition hover:text-blue-700 sm:self-auto sm:text-[16px] md:text-[18px]"
         >
           View Details
         </button>
