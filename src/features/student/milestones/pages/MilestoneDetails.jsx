@@ -1,4 +1,5 @@
 import { CalendarDays, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 import Button from "../../../../components/ui/Button";
 
@@ -16,7 +17,7 @@ const milestoneOptions = [
   "Secured Funding",
 ];
 
-function SelectField({ label, value, options }) {
+function SelectField({ label, value, options, onChange }) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-semibold text-slate-800 sm:text-base">
@@ -25,11 +26,16 @@ function SelectField({ label, value, options }) {
 
       <span className="relative block">
         <select
-          defaultValue={value}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
           className="h-12 w-full appearance-none rounded-[10px] border border-slate-200 bg-white px-3 pr-11 text-sm text-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 sm:h-13.25 sm:px-4 sm:text-lg"
         >
+          <option value="">Select {label}</option>
+
           {options.map((option) => (
-            <option key={option}>{option}</option>
+            <option key={option} value={option}>
+              {option}
+            </option>
           ))}
         </select>
 
@@ -45,9 +51,26 @@ function SelectField({ label, value, options }) {
 }
 
 export default function MilestoneDetails({ onContinue }) {
+  const [category, setCategory] = useState("");
+  const [milestone, setMilestone] = useState("");
+  const [description, setDescription] = useState("");
+  const [achievementDate, setAchievementDate] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const milestoneDetails = {
+      category,
+      milestone,
+      description,
+      achievementDate,
+    };
+
+    onContinue?.(milestoneDetails);
+  };
+
   return (
     <section className="w-full rounded-xl border border-slate-200 bg-white px-4 py-5 shadow-sm sm:rounded-[14px] sm:px-6 sm:py-7 md:px-8 md:py-8 lg:px-10 lg:py-10">
-      {/* Header */}
       <div>
         <h1 className="text-[22px] font-bold leading-7 text-slate-900 sm:text-[24px] md:text-[28px] md:leading-8">
           Milestone Details
@@ -58,27 +81,22 @@ export default function MilestoneDetails({ onContinue }) {
         </p>
       </div>
 
-      <form
-        className="mt-6 flex flex-col sm:mt-8"
-        onSubmit={(event) => {
-          event.preventDefault();
-          onContinue?.();
-        }}
-      >
+      <form className="mt-6 flex flex-col sm:mt-8" onSubmit={handleSubmit}>
         <div className="space-y-5 sm:space-y-6">
           <SelectField
             label="Category"
-            value="Innovation & Product"
+            value={category}
             options={categoryOptions}
+            onChange={setCategory}
           />
 
           <SelectField
             label="Milestone"
-            value="Built Functional Prototype"
+            value={milestone}
             options={milestoneOptions}
+            onChange={setMilestone}
           />
 
-          {/* Description */}
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-800 sm:text-base">
               Achievement Description
@@ -86,12 +104,13 @@ export default function MilestoneDetails({ onContinue }) {
 
             <textarea
               rows={5}
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
               placeholder="Describe what you accomplished, the skills you applied, and the impact of this milestone..."
               className="min-h-[130px] w-full resize-none rounded-[10px] border border-slate-200 bg-white px-3 py-3 text-sm leading-6 text-slate-700 outline-none placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/10 sm:h-32.75 sm:px-4 sm:text-lg sm:leading-7"
             />
           </label>
 
-          {/* Date */}
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-800 sm:text-base">
               Date of Achievement
@@ -99,8 +118,9 @@ export default function MilestoneDetails({ onContinue }) {
 
             <span className="relative block w-full max-w-xl">
               <input
-                type="text"
-                defaultValue="August 28, 2026"
+                type="date"
+                value={achievementDate}
+                onChange={(event) => setAchievementDate(event.target.value)}
                 className="h-12 w-full rounded-[10px] border border-slate-200 bg-white px-3 pr-11 text-sm text-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 sm:h-13.25 sm:px-4 sm:text-lg"
               />
 
@@ -114,7 +134,6 @@ export default function MilestoneDetails({ onContinue }) {
           </label>
         </div>
 
-        {/* Actions */}
         <div className="mt-8 flex flex-col-reverse gap-4 border-t border-slate-100 pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:border-0 sm:pt-0">
           <Button
             type="button"

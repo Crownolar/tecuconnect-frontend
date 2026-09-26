@@ -1,11 +1,14 @@
 export const getProfile = async () => {
   // Future API integration
+  return null;
 };
 
-export const updateProfile = async (data) => {
+export const updateProfile = async () => {
   // Future API integration
+  return null;
 };
 
-export const updateProfileSettings = async (data) => {
+export const updateProfileSettings = async () => {
   // Future API integration
+  return null;
 };

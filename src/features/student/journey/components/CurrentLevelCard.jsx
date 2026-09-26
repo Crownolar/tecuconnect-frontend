@@ -1,9 +1,6 @@
 import Card from "../../../../components/ui/Card";
 
-export default function CurrentLevelCard({
-  currentLevel,
-  progress,
-}) {
+export default function CurrentLevelCard({ currentLevel }) {
   return (
     <Card
       padding="none"
@@ -29,8 +26,8 @@ export default function CurrentLevelCard({
         </p>
 
         <p className="text-[13px] font-normal leading-6 text-[#53657D] sm:text-[14px]">
-          You are actively applying entrepreneurial skills to real projects.
-          You have demonstrated competency across core areas and are building
+          You are actively applying entrepreneurial skills to real projects. You
+          have demonstrated competency across core areas and are building
           practical experience through mentored ventures.
         </p>
       </div>

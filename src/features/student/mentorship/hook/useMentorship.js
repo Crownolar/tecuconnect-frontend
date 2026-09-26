@@ -3,7 +3,7 @@ import {
   upcomingSession,
   mentors,
   recentSessions,
-} from "../mentorship.data";
+} from "../../../mocks/mentorship";
 
 export const useMentorship = () => {
   return {

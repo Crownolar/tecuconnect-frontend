@@ -1,30 +1,13 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-} from "react";
-
+import { createContext, useState } from "react";
 import { authService } from "../features/auth/auth.service";
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-
-    if (currentUser) {
-      setUser(currentUser);
-    }
-
-    setIsLoading(false);
-  }, []);
+  const [user, setUser] = useState(() => authService.getCurrentUser());
 
   const login = (userData) => {
     const authenticatedUser = authService.login(userData);
-
     setUser(authenticatedUser);
   };
 
@@ -39,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         logout,
-        isLoading,
+        isLoading: false,
         isAuthenticated: Boolean(user),
       }}
     >

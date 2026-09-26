@@ -1,72 +1,109 @@
-import { useState } from "react";
+import { useMemo } from "react";
 
-import MilestoneCard from "./MilestoneCard";
+export default function MilestoneFilters({
+  milestones = [],
+  claims = [],
+  categoryFilter = "all",
+  statusFilter = "all",
+  onCategoryChange,
+  onStatusChange,
+}) {
+  const safeMilestones = Array.isArray(milestones) ? milestones : [];
+  const safeClaims = Array.isArray(claims) ? claims : [];
 
-const tabs = [
-  { label: "All", value: "all" },
-  { label: "Verified", value: "verified" },
-  { label: "Pending", value: "pending" },
-  { label: "Needs Changes", value: "needs_changes" },
-];
+  const categories = useMemo(() => {
+    return [
+      ...new Set(
+        safeMilestones
+          .map((milestone) => milestone.category)
+          .filter(Boolean),
+      ),
+    ];
+  }, [safeMilestones]);
 
-export default function MilestoneFilters({ milestones }) {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const filteredMilestones = useMemo(() => {
+    return safeMilestones.filter((milestone) => {
+      const categoryMatch =
+        categoryFilter === "all" ||
+        milestone.category === categoryFilter;
 
-  const filteredMilestones =
-    activeFilter === "all"
-      ? milestones
-      : milestones.filter(
-          (milestone) => milestone.status === activeFilter
-        );
+      if (!categoryMatch) {
+        return false;
+      }
+
+      if (statusFilter === "all") {
+        return true;
+      }
+
+      const claim = safeClaims.find(
+        (item) =>
+          item.milestone === milestone.milestone ||
+          item.milestoneId === milestone.id,
+      );
+
+      return claim?.status === statusFilter;
+    });
+  }, [safeMilestones, safeClaims, categoryFilter, statusFilter]);
 
   return (
-    <div className="w-full min-w-0">
-      {/* Filter Tabs */}
-      <div className="mt-4 w-full overflow-x-auto border-b border-[#dbe3ea] pb-0">
-        <div className="flex min-w-max items-center gap-6 text-[13px] sm:gap-9 sm:text-[15px]">
-          {tabs.map((tab) => {
-            const isActive = activeFilter === tab.value;
+    <section className="mt-6 space-y-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <select
+          value={categoryFilter}
+          onChange={(event) => onCategoryChange?.(event.target.value)}
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-[#0A3B25] sm:w-auto"
+        >
+          <option value="all">All Categories</option>
 
-            return (
-              <button
-                key={tab.value}
-                type="button"
-                onClick={() => setActiveFilter(tab.value)}
-                className={`shrink-0 rounded-none pb-2 transition ${
-                  isActive
-                    ? "border-b-2 border-[#0a3b25] font-bold text-[#0a3b25]"
-                    : "font-medium text-[#475569] hover:text-[#0a3b25]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={statusFilter}
+          onChange={(event) => onStatusChange?.(event.target.value)}
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-[#0A3B25] sm:w-auto"
+        >
+          <option value="all">All Statuses</option>
+          <option value="VERIFIED">Verified</option>
+          <option value="PENDING_REVIEW">Pending Review</option>
+          <option value="CHANGES_REQUESTED">Needs Changes</option>
+        </select>
       </div>
 
-      {/* Cards */}
-      <section className="mt-5 grid min-w-0 grid-cols-1 gap-4 sm:mt-6 sm:gap-5 xl:grid-cols-2 xl:gap-[23.745px]">
-        {filteredMilestones.map((milestone) => (
-          <MilestoneCard
-            key={milestone.id}
-            {...milestone}
-          />
-        ))}
-      </section>
+      <div className="space-y-3">
+        {filteredMilestones.length === 0 ? (
+          <div className="rounded-xl border border-slate-200 bg-white p-6 text-center">
+            <p className="text-sm text-slate-500">
+              No milestones match your filters.
+            </p>
+          </div>
+        ) : (
+          filteredMilestones.map((milestone) => (
+            <div
+              key={milestone.id || milestone.milestone}
+              className="rounded-xl border border-slate-200 bg-white p-4"
+            >
+              <p className="text-xs font-medium text-slate-500">
+                {milestone.category}
+              </p>
 
-      {/* Empty State */}
-      {filteredMilestones.length === 0 && (
-        <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-white px-4 py-10 text-center">
-          <p className="text-sm font-medium text-slate-600">
-            No milestones found.
-          </p>
+              <h3 className="mt-1 font-semibold text-slate-900">
+                {milestone.milestone}
+              </h3>
 
-          <p className="mt-1 text-xs text-slate-400">
-            Try selecting another filter.
-          </p>
-        </div>
-      )}
-    </div>
+              {milestone.description && (
+                <p className="mt-1 text-sm text-slate-500">
+                  {milestone.description}
+                </p>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+    </section>
   );
 }

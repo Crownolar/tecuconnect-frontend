@@ -5,10 +5,20 @@ import CurrentLevelCard from "./components/CurrentLevelCard";
 import DevelopmentAreas from "./components/DevelopmentAreas";
 import NextRequirement from "./components/NextRequirement";
 import AchievementList from "./components/AchievementList";
-
 import Button from "../../../components/ui/Button";
 
+import { useStudentProgress } from "../progress/hooks";
+
 export default function MyJourney() {
+  const {
+    data: progress,
+    isLoading: progressLoading,
+  } = useStudentProgress();
+
+  const currentLevel =
+    progress?.maturity?.currentLevel ??
+    journey.currentLevel;
+
   return (
     <div className="min-h-screen w-full space-y-5 bg-slate-50 sm:space-y-6 lg:space-y-7">
       {/* Page Header */}
@@ -33,7 +43,7 @@ export default function MyJourney() {
         {/* Left Column */}
         <div className="min-w-0 space-y-5 lg:space-y-6">
           <CurrentLevelCard
-            currentLevel={journey.currentLevel}
+            currentLevel={currentLevel}
             progress={journey.progress}
           />
 
