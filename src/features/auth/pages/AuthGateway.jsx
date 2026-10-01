@@ -1,69 +1,3 @@
-// import { useNavigate } from "react-router-dom";
-
-// import { useAuth } from "../../../hooks/useAuth";
-
-// import AuthBrandPanel from "../components/AuthBrandPanel";
-// import AuthLoginPanel from "../components/AuthLoginPanel";
-
-// import { getDashboardRoute } from "../../../utils/helpers";
-
-// const AuthGateway = () => {
-//   const navigate = useNavigate();
-//   const { login } = useAuth();
-
-//   const handleLogin = () => {
-//     const role = import.meta.env.VITE_MOCK_ROLE || "MENTOR";
-//     const roleDefaults = {
-//       STUDENT: {
-//         id: "student-001",
-//         name: "Yusuf Abdulrahman",
-//         email: "yusuf.abdulrahman@student.unilorin.edu.ng",
-//       },
-//       MENTOR: {
-//         id: "mentor-001",
-//         name: "TEC Mentor",
-//         email: "mentor@unilorin.edu.ng",
-//       },
-//       STAFF: {
-//         id: "staff-001",
-//         name: "TEC Staff",
-//         email: "staff@unilorin.edu.ng",
-//       },
-//       ADMIN: {
-//         id: "admin-001",
-//         name: "TEC Admin",
-//         email: "admin@unilorin.edu.ng",
-//       },
-//       STAKEHOLDER: {
-//         id: "stakeholder-001",
-//         name: "TEC Stakeholder",
-//         email: "stakeholder@unilorin.edu.ng",
-//       },
-//     };
-
-//     const mockUser = {
-//       ...(roleDefaults[role] || roleDefaults.STUDENT),
-//       role,
-//     };
-
-//     login(mockUser);
-
-//     navigate(getDashboardRoute(mockUser.role), {
-//       replace: true,
-//     });
-//   };
-
-//   return (
-//     <main className="grid min-h-screen lg:grid-cols-2">
-//       <AuthBrandPanel />
-
-//       <AuthLoginPanel onLogin={handleLogin} />
-//     </main>
-//   );
-// };
-
-// export default AuthGateway;
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, ShieldCheck } from "lucide-react";
@@ -72,7 +6,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { getDashboardRoute } from "../../../utils/helpers";
 
 const USE_MOCK_AUTH =
-  import.meta.env.VITE_USE_MOCK_AUTH !== "false";
+  import.meta.env.VITE_USE_MOCK_AUTH === "true";
 
 const mockRoles = [
   {
