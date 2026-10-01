@@ -3,20 +3,17 @@ import { tokenStorage } from "../../services/auth/tokenStorage";
 
 const AUTH_STORAGE_KEY = "tec_trak_user";
 
-const USE_MOCK_AUTH = import.meta.env.VITE_USE_MOCK_AUTH !== "false";
+const USE_MOCK_AUTH = import.meta.env.VITE_USE_MOCK_AUTH === "true";
 
 const saveMockUser = (user) => {
   localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-
   return user;
 };
 
 const getMockUser = () => {
   const user = localStorage.getItem(AUTH_STORAGE_KEY);
 
-  if (!user) {
-    return null;
-  }
+  if (!user) return null;
 
   try {
     return JSON.parse(user);
@@ -30,34 +27,34 @@ const clearMockUser = () => {
   localStorage.removeItem(AUTH_STORAGE_KEY);
 };
 
+const unwrapData = (response) => {
+  return response?.data ?? response;
+};
+
 export const authService = {
-  async login(credentialsOrUser) {
+  async login(credentials) {
     if (USE_MOCK_AUTH) {
-      return saveMockUser(credentialsOrUser);
+      return saveMockUser(credentials);
     }
 
-    const response = await apiClient.post("/auth/login", credentialsOrUser);
+    const response = await apiClient.post("/auth/login", credentials);
 
-    const token =
-      response?.token ??
-      response?.data?.token ??
-      response?.accessToken ??
-      response?.data?.accessToken;
+    const payload = unwrapData(response);
 
-    if (!token) {
+    if (!payload?.token) {
       throw new Error(
         "Authentication succeeded but no access token was returned.",
       );
     }
 
-    tokenStorage.set(token);
+    tokenStorage.set(payload.token);
 
-    const user = response?.user ?? response?.data?.user ?? response?.data;
-
-    if (user) {
-      return user;
+    // If login response already contains the user
+    if (payload.user) {
+      return payload.user;
     }
 
+    // Otherwise restore the authenticated user from /auth/me
     return this.getCurrentUser();
   },
 
@@ -68,20 +65,12 @@ export const authService = {
 
     const token = tokenStorage.get();
 
-    if (!token) {
-      return null;
-    }
+    if (!token) return null;
 
     try {
       const response = await apiClient.get("/auth/me");
 
-      return (
-        response?.data?.user ??
-        response?.data ??
-        response?.user ??
-        response ??
-        null
-      );
+      return unwrapData(response);
     } catch (error) {
       if (error.status === 401) {
         tokenStorage.clear();
