@@ -6,10 +6,29 @@ import Card from "../../../../components/ui/Card";
 export default function JourneyTracker({
   stages = [],
   orientation = "horizontal",
+  currentLevel,
+  currentOrdinal,
 }) {
   if (orientation !== "horizontal") {
     return null;
   }
+
+  const normalizedStages = stages.map((stage) => {
+  const stageOrdinal = Number(stage.level);
+
+  let status = "locked";
+
+  if (stageOrdinal < currentOrdinal) {
+    status = "completed";
+  } else if (stageOrdinal === currentOrdinal) {
+    status = "current";
+  }
+
+  return {
+    ...stage,
+    status,
+  };
+});
 
   return (
     <Card
@@ -30,12 +49,12 @@ export default function JourneyTracker({
       {/* Scroll Container */}
       <div className="w-full overflow-x-auto pb-2">
         <div className="flex min-w-[720px] items-center gap-2">
-          {stages.map((stage, index) => (
+          {normalizedStages.map((stage, index) => (
             <Fragment key={`${stage.level}-${stage.name}`}>
               {/* Stage */}
               <div
                 className={
-                  stage.status === "current"
+                  normalizedStages.status === "current"
                     ? "flex min-w-[135px] flex-1 items-center gap-2 rounded-lg border border-[#10b981] bg-[rgba(16,185,129,0.1)] px-3 py-2.5"
                     : `flex min-w-[125px] flex-1 items-center gap-2 rounded-lg px-2 py-2.5 ${
                         stage.status === "locked" ? "opacity-50" : ""
@@ -98,7 +117,7 @@ export default function JourneyTracker({
                 <div className="h-0.5 w-6 flex-none bg-[#e2e8f0] sm:w-10">
                   <div
                     className={`h-full w-full ${
-                      stages[index + 1].status === "locked"
+                      normalizedStages[index + 1].status === "locked"
                         ? "bg-[#e2e8f0]"
                         : "bg-[#0a3b25]"
                     }`}

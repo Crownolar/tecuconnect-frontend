@@ -1,13 +1,32 @@
 import { tokenStorage } from "../auth/tokenStorage";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "";
 
-const getAuthToken = () => {
-  return tokenStorage.get();
+const parseResponse = async (response) => {
+  const contentType = response.headers.get("content-type");
+
+  if (contentType?.includes("application/json")) {
+    return response.json();
+  }
+
+  return null;
+};
+
+const createApiError = (response, data) => {
+  const error = new Error(
+    data?.message ||
+      data?.error ||
+      `Request failed with status ${response.status}`
+  );
+
+  error.status = response.status;
+  error.data = data;
+
+  return error;
 };
 
 const request = async (endpoint, options = {}) => {
-  const token = getAuthToken();
+  const token = tokenStorage.get();
 
   const headers = {
     "Content-Type": "application/json",
@@ -23,31 +42,63 @@ const request = async (endpoint, options = {}) => {
     headers,
   });
 
+  const data = await parseResponse(response);
+
   if (response.status === 401) {
     tokenStorage.clear();
 
-    window.location.href = "/auth";
+    const error = createApiError(response, data);
 
-    throw new Error("Your session has expired. Please sign in again.");
-  }
+    error.message =
+      data?.message ||
+      data?.error ||
+      "Your session has expired. Please sign in again.";
 
-  let data = null;
-
-  const contentType = response.headers.get("content-type");
-
-  if (contentType && contentType.includes("application/json")) {
-    data = await response.json();
+    throw error;
   }
 
   if (!response.ok) {
-    const error = new Error(
-      data?.message || `Request failed with status ${response.status}`,
-    );
+    throw createApiError(response, data);
+  }
 
-    error.status = response.status;
-    error.data = data;
+  return data;
+};
+
+const upload = async (endpoint, formData, options = {}) => {
+  const token = tokenStorage.get();
+
+  const headers = {
+    ...(options.headers || {}),
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    method: "POST",
+    headers,
+    body: formData,
+  });
+
+  const data = await parseResponse(response);
+
+  if (response.status === 401) {
+    tokenStorage.clear();
+
+    const error = createApiError(response, data);
+
+    error.message =
+      data?.message ||
+      data?.error ||
+      "Your session has expired. Please sign in again.";
 
     throw error;
+  }
+
+  if (!response.ok) {
+    throw createApiError(response, data);
   }
 
   return data;
@@ -92,41 +143,5 @@ export const apiClient = {
     });
   },
 
-  upload(endpoint, formData, options = {}) {
-    const token = tokenStorage.get();
-
-    const headers = {
-      ...(options.headers || {}),
-    };
-
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-
-    return fetch(`${API_BASE_URL}${endpoint}`, {
-      ...options,
-      method: "POST",
-      headers,
-      body: formData,
-    }).then(async (response) => {
-      const contentType = response.headers.get("content-type");
-
-      const data = contentType?.includes("application/json")
-        ? await response.json()
-        : null;
-
-      if (!response.ok) {
-        const error = new Error(
-          data?.message || `Request failed with status ${response.status}`,
-        );
-
-        error.status = response.status;
-        error.data = data;
-
-        throw error;
-      }
-
-      return data;
-    });
-  },
+  upload,
 };

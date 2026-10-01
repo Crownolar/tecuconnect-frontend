@@ -1,38 +1,37 @@
+import { useNavigate } from "react-router-dom";
 import { useAdminUsers } from "../hooks";
 
 export default function AdminUsers() {
   const { data = [], isLoading, isError } = useAdminUsers();
+  const navigate = useNavigate();
 
   if (isLoading) {
-    return (
-      <div className="p-6 text-sm text-slate-500">
-        Loading users...
-      </div>
-    );
+    return <div className="p-6 text-sm text-slate-500">Loading users...</div>;
   }
 
   if (isError) {
     return (
-      <div className="p-6 text-sm text-red-600">
-        Unable to load users.
-      </div>
+      <div className="p-6 text-sm text-red-600">Unable to load users.</div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm font-medium text-emerald-600">
-          Administration
-        </p>
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold text-slate-900">Users</h1>
 
-        <h1 className="mt-1 text-2xl font-bold text-slate-900">
-          Users
-        </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Manage TEC-TRAK user accounts.
+          </p>
+        </div>
 
-        <p className="mt-1 text-sm text-slate-500">
-          Review platform accounts and role assignments.
-        </p>
+        <button
+          onClick={() => navigate("/admin/users/create")}
+          className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-800"
+        >
+          Enroll Student
+        </button>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -69,9 +68,7 @@ export default function AdminUsers() {
                     {user.name}
                   </td>
 
-                  <td className="px-5 py-4 text-slate-500">
-                    {user.email}
-                  </td>
+                  <td className="px-5 py-4 text-slate-500">{user.email}</td>
 
                   <td className="px-5 py-4">
                     <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
@@ -91,14 +88,18 @@ export default function AdminUsers() {
                     </span>
                   </td>
 
-                  <td className="px-5 py-4 text-slate-500">
-                    {user.lastLogin}
-                  </td>
+                  <td className="px-5 py-4 text-slate-500">{user.lastLogin}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {/* <button
+          onClick={() => navigate("/admin/users/create")}
+          className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white"
+        >
+          Create Student
+        </button> */}
       </div>
     </div>
   );

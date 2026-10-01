@@ -39,6 +39,7 @@ import StakeholderImpact from "../features/stakeholder/impact/StakeholderImpact"
 import StakeholderReports from "../features/stakeholder/reports/StakeholderReports";
 import StakeholderProfile from "../features/stakeholder/profile/StakeholderProfile";
 import ResubmitMilestone from "@/features/student/milestones/pages/ResubmitMilestone";
+import AdminCreateUser from "@/features/admin/users/AdminCreateUser";
 
 const router = createBrowserRouter([
   {
@@ -226,6 +227,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <AdminSettings />,
+          },
+          {
+            path: "users/create",
+            element: <AdminCreateUser />,
           },
         ],
       },

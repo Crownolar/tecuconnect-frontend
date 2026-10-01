@@ -1,6 +1,7 @@
 import { PencilLine } from "lucide-react";
 
 const ProfileIdentityCard = ({ profile, onEdit }) => {
+  
   return (
     <section className="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
       <div className="flex flex-col gap-5 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">

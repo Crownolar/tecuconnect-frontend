@@ -126,7 +126,9 @@ export const milestonesService = {
       );
     }
 
-    return apiClient.get("/student/milestone-claims");
+    const response = await apiClient.get("/milestones/me");
+
+    return response?.data ?? response;
   },
 
   async resubmitClaim(claimId, payload) {
