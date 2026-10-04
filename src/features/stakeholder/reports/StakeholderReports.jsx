@@ -1,4 +1,4 @@
-import { FileBarChart, CalendarDays, ArrowRight } from "lucide-react";
+import { FileBarChart } from "lucide-react";
 
 import { useStakeholderReports } from "../hooks";
 
@@ -37,10 +37,6 @@ export default function StakeholderReports() {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100">
                 <FileBarChart size={20} className="text-slate-700" />
               </div>
-
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                {report.type}
-              </span>
             </div>
 
             <h2 className="mt-5 font-semibold text-slate-900">
@@ -50,21 +46,6 @@ export default function StakeholderReports() {
             <p className="mt-2 text-sm leading-6 text-slate-500">
               {report.description}
             </p>
-
-            <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <CalendarDays size={14} />
-                {report.period}
-              </div>
-
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 transition hover:text-slate-950"
-              >
-                View
-                <ArrowRight size={15} />
-              </button>
-            </div>
           </div>
         ))}
 

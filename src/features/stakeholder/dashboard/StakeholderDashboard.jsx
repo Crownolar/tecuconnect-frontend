@@ -49,7 +49,7 @@ export default function StakeholderDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StakeholderMetricCard
           label="Students"
-          value={data.totalStudents}
+          value={data.students}
           description="Students enrolled"
           icon={GraduationCap}
         />
@@ -70,28 +70,28 @@ export default function StakeholderDashboard() {
 
         <StakeholderMetricCard
           label="Attendance"
-          value={`${data.averageAttendance}%`}
+          value={`${data.attendanceRate}%`}
           description="Average programme attendance"
           icon={CalendarCheck}
         />
 
         <StakeholderMetricCard
           label="Milestones"
-          value={data.milestonesCompleted}
+          value={data.verifiedMilestones}
           description="Completed milestones"
           icon={Target}
         />
 
         <StakeholderMetricCard
           label="Mentors"
-          value={data.activeMentors}
+          value={data.mentors}
           description="Active mentors"
           icon={Users}
         />
 
         <StakeholderMetricCard
           label="Departments"
-          value={data.departmentsReached}
+          value={data.departments}
           description="Departments reached"
           icon={Building2}
         />
