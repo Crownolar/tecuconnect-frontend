@@ -15,7 +15,7 @@ export const staffService = {
       return staffDashboard;
     }
 
-    return apiClient.get("/staff/dashboard");
+    return apiClient.get("/dashboard/staff");
   },
 
   async getStudents() {
@@ -23,7 +23,7 @@ export const staffService = {
       return staffStudents;
     }
 
-    return apiClient.get("/staff/students");
+    return apiClient.get("/students");
   },
 
   async getFlags() {
@@ -31,7 +31,7 @@ export const staffService = {
       return staffFlags;
     }
 
-    return apiClient.get("/staff/flags");
+    return apiClient.get("/flags");
   },
 
   async getAttendance() {
@@ -39,7 +39,36 @@ export const staffService = {
       return staffAttendance;
     }
 
-    return apiClient.get("/staff/attendance");
+    return apiClient.get("/attendance/summary");
+  },
+  async getMilestones() {
+    if (USE_MOCK_API) {
+      return staffAttendance;
+    }
+
+    return apiClient.get("/milestones");
+  },
+
+  async getReports() {
+    // if (USE_MOCK_API) {
+    //   return staffAttendance;
+    // }
+
+    return apiClient.get("/reports");
+  },
+  async getNotifications() {
+    // if (USE_MOCK_API) {
+    //   return staffAttendance;
+    // }
+
+    return apiClient.get("/notifications");
+  },
+  async getProfile() {
+    // if (USE_MOCK_API) {
+    //   return staffAttendance;
+    // }
+
+    return apiClient.get("/dashboard/me");
   },
 
   async resolveFlag(flagId) {
@@ -51,6 +80,6 @@ export const staffService = {
       };
     }
 
-    return apiClient.patch(`/staff/flags/${flagId}/resolve`);
+    return apiClient.patch(`/flags/${flagId}/resolve`);
   },
 };

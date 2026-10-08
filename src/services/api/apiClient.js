@@ -16,7 +16,7 @@ const createApiError = (response, data) => {
   const error = new Error(
     data?.message ||
       data?.error ||
-      `Request failed with status ${response.status}`
+      `Request failed with status ${response.status}`,
   );
 
   error.status = response.status;
