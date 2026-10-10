@@ -16,7 +16,13 @@ export default function Sidebar({ open, onClose, role }) {
     navigate("/auth", { replace: true });
   };
 
-  const displayName = user?.name ?? "TEC-TRAK User";
+  const stakeholderName = [user?.firstName, user?.lastName]
+    .filter(Boolean)
+    .join(" ");
+  const displayName =
+    role === "STAKEHOLDER"
+      ? stakeholderName || "TEC-TRAK User"
+      : (user?.name ?? "TEC-TRAK User");
   const subtitle = user?.role ? getRoleLabel(user.role) : config.subtitle;
 
   return (

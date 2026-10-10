@@ -46,49 +46,37 @@ export default function StakeholderImpact() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StakeholderMetricCard
           label="Students Enrolled"
-          value={data.studentsEnrolled}
+          value={data.funnel.enrolled}
           icon={GraduationCap}
         />
 
         <StakeholderMetricCard
           label="Students Active"
-          value={data.studentsActive}
+          value={data.funnel.active}
           icon={Users}
         />
 
         <StakeholderMetricCard
-          label="Students Completed"
-          value={data.studentsCompleted}
-          icon={CheckCircle2}
-        />
-
-        <StakeholderMetricCard
-          label="Milestone Completion"
-          value={`${data.milestoneCompletionRate}%`}
-          icon={CheckCircle2}
-        />
-
-        <StakeholderMetricCard
           label="Programme Attendance"
-          value={`${data.averageProgrammeAttendance}%`}
+          value={`${data.participation.attendanceRate}%`}
           icon={CalendarCheck}
         />
 
         <StakeholderMetricCard
           label="Ventures Supported"
-          value={data.venturesSupported}
+          value={data.participation.ventures.supported}
           icon={BriefcaseBusiness}
         />
 
         <StakeholderMetricCard
           label="Ventures Validated"
-          value={data.venturesValidated}
+          value={data.participation.ventures.validated}
           icon={CheckCircle2}
         />
 
         <StakeholderMetricCard
           label="Ventures Launched"
-          value={data.venturesLaunched}
+          value={data.participation.ventures.launched}
           icon={BriefcaseBusiness}
         />
       </div>
@@ -105,12 +93,16 @@ export default function StakeholderImpact() {
         </div>
 
         <div className="divide-y divide-slate-100">
-          {data.departmentParticipation.map((item) => (
+          {data.departments.map((item) => (
             <div
-              key={item.department}
+              key={item.id}
               className="flex items-center justify-between px-5 py-4"
             >
-              <span className="text-sm text-slate-700">{item.department}</span>
+              <div>
+                <p className="text-sm text-slate-700">{item.name}</p>
+
+                <p className="mt-1 text-xs text-slate-400">{item.faculty}</p>
+              </div>
 
               <span className="font-semibold text-slate-900">
                 {item.students}
@@ -134,10 +126,8 @@ export default function StakeholderImpact() {
 
           <div className="text-right">
             <p className="text-2xl font-bold text-slate-900">
-              {data.mentorshipSessions}
+              {data.participation.mentorshipEngagement}
             </p>
-
-            <p className="text-xs text-slate-400">sessions</p>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ import {
 
 import { apiClient } from "../../services/api/apiClient";
 
-const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API !== "false";
+const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === "true";
 
 export const stakeholderService = {
   async getDashboard() {
@@ -14,7 +14,9 @@ export const stakeholderService = {
       return stakeholderDashboard;
     }
 
-    return apiClient.get("/stakeholder/dashboard");
+    const response = await apiClient.get("/dashboard/stakeholder");
+
+    return response.data.stats;
   },
 
   async getImpact() {
@@ -22,7 +24,9 @@ export const stakeholderService = {
       return stakeholderImpact;
     }
 
-    return apiClient.get("/stakeholder/impact");
+    const response = await apiClient.get("/dashboard/stakeholder/impact");
+
+    return response.data;
   },
 
   async getReports() {
@@ -30,6 +34,8 @@ export const stakeholderService = {
       return stakeholderReports;
     }
 
-    return apiClient.get("/stakeholder/reports");
+    const response = await apiClient.get("/reports");
+
+    return response.data;
   },
 };

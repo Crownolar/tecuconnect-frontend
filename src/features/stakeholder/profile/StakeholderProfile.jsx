@@ -3,6 +3,9 @@ import { useAuth } from "../../../hooks/useAuth";
 
 export default function StakeholderProfile() {
   const { user } = useAuth();
+  const displayName =
+    [user?.firstName, user?.lastName].filter(Boolean).join(" ") ||
+    "TEC-TRAK Stakeholder";
 
   return (
     <div className="space-y-6">
@@ -23,9 +26,7 @@ export default function StakeholderProfile() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-slate-900">
-              {user?.name ?? "TEC-TRAK Stakeholder"}
-            </h2>
+            <h2 className="font-semibold text-slate-900">{displayName}</h2>
 
             <p className="mt-1 text-sm text-slate-500">
               {user?.email ?? "Stakeholder account"}
