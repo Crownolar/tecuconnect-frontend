@@ -6,9 +6,7 @@ const statusColors = {
   default: "bg-slate-400",
 };
 
-export default function ActivityTimeline({
-  activities = [],
-}) {
+export default function ActivityTimeline({ activities = [] }) {
   return (
     <Card>
       <h3 className="mb-5 text-sm font-semibold text-slate-800">
@@ -17,16 +15,13 @@ export default function ActivityTimeline({
 
       <div className="space-y-5">
         {activities.map((activity) => (
-          <div
-            key={activity.id}
-            className="flex gap-3"
-          >
+          <div key={activity.id} className="flex gap-3">
             <div className="flex flex-col items-center">
               <span
                 className={`
-                  mt-1 h-2 w-2 rounded-full
-                  ${statusColors[activity.status]}
-                `}
+  mt-1 h-2 w-2 rounded-full
+  ${statusColors[activity.status] ?? statusColors.default}
+`}
               />
 
               <div className="mt-1 h-full w-px bg-slate-200" />

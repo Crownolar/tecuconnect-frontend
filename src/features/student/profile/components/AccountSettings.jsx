@@ -1,8 +1,5 @@
-import {
-  Bell,
-  ShieldCheck,
-  CheckCircle2,
-} from "lucide-react";
+import { Bell, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const icons = {
   notifications: Bell,
@@ -10,6 +7,14 @@ const icons = {
 };
 
 const AccountSettings = ({ settings }) => {
+  const navigate = useNavigate();
+
+  const handleAccountAction = (item) => {
+    if (item.id === "notifications") {
+      navigate("/student/notifications");
+    }
+  };
+
   return (
     <section className="rounded-2xl border border-border bg-surface p-5 shadow-sm sm:p-6">
       <h2 className="text-lg font-semibold text-text-primary">
@@ -43,9 +48,11 @@ const AccountSettings = ({ settings }) => {
 
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-accent transition hover:bg-slate-100"
+                onClick={() => handleAccountAction(item)}
+                disabled={item.id === "security"}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {item.action}
+                {item.id === "security" ? "Unavailable" : item.action}
               </button>
             </div>
           );

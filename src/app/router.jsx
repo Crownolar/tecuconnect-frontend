@@ -18,6 +18,10 @@ import MentorDashboard from "../features/mentor/dashboard/MentorDashboard";
 import MentorStudents from "../features/mentor/students/MentorStudents";
 import MilestoneReviews from "../features/mentor/reviews/MilestoneReviews";
 import PortalPlaceholder from "../features/portal/pages/PortalPlaceholder";
+import MentorMentorship from "../features/mentor/mentorship/Mentorship";
+import MentorAssessments from "../features/mentor/assessments/Assessments";
+import MentorNotifications from "../features/mentor/notifications/Notifications";
+import MentorProfile from "../features/mentor/profile";
 
 import StaffDashboard from "../features/staff/dashboard/StaffDashboard";
 import StaffStudents from "../features/staff/students/StaffStudents";
@@ -40,6 +44,9 @@ import StakeholderReports from "../features/stakeholder/reports/StakeholderRepor
 import StakeholderProfile from "../features/stakeholder/profile/StakeholderProfile";
 import ResubmitMilestone from "@/features/student/milestones/pages/ResubmitMilestone";
 import AdminCreateUser from "@/features/admin/users/AdminCreateUser";
+import MilestoneView from "@/features/student/milestones/pages/MilestoneView";
+import AdminMentors from "@/features/admin/mentors/AdminMentors";
+import AdminStudentDetail from "@/features/admin/students/AdminStudentDetail";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +77,10 @@ const router = createBrowserRouter([
             path: "milestones/resubmit",
             element: <ResubmitMilestone />,
           },
+          {
+            path: "milestones/:milestoneId",
+            element: <MilestoneView />,
+          },
         ],
       },
     ],
@@ -87,43 +98,19 @@ const router = createBrowserRouter([
           { path: "reviews", element: <MilestoneReviews /> },
           {
             path: "assessments",
-            element: (
-              <PortalPlaceholder
-                role="Mentor"
-                title="Assessments"
-                description="Complete competency assessments as defined by the backend workflow."
-              />
-            ),
+            element: <MentorAssessments />,
           },
           {
             path: "mentorship",
-            element: (
-              <PortalPlaceholder
-                role="Mentor"
-                title="Mentorship"
-                description="Manage mentorship sessions, guidance and follow-up activities."
-              />
-            ),
+            element: <MentorMentorship />,
           },
           {
             path: "notifications",
-            element: (
-              <PortalPlaceholder
-                role="Mentor"
-                title="Notifications"
-                description="Review role-specific alerts and actions requiring attention."
-              />
-            ),
+            element: <MentorNotifications />,
           },
           {
             path: "profile",
-            element: (
-              <PortalPlaceholder
-                role="Mentor"
-                title="Profile"
-                description="Manage mentor profile information and account settings."
-              />
-            ),
+            element: <MentorProfile />,
           },
         ],
       },
@@ -204,10 +191,9 @@ const router = createBrowserRouter([
             element: <AdminUsers />,
           },
 
-          {
-            path: "students",
-            element: <AdminStudents />,
-          },
+          { path: "students", element: <AdminStudents /> },
+
+          { path: "students/:studentId", element: <AdminStudentDetail /> },
 
           {
             path: "catalog",
@@ -217,6 +203,11 @@ const router = createBrowserRouter([
           {
             path: "maturity",
             element: <AdminMaturity />,
+          },
+
+          {
+            path: "mentors",
+            element: <AdminMentors />,
           },
 
           {

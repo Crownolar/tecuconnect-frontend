@@ -58,6 +58,7 @@ export default function MentorDashboard() {
   }
 
   const stats = data?.stats || [];
+  const pendingReviews = data?.pendingReviews || [];
   const upcomingSessions = data?.upcomingSessions || [];
   const activity = data?.activity || [];
 
@@ -104,7 +105,7 @@ export default function MentorDashboard() {
             <Clock3 className="h-5 w-5 text-slate-400" />
           </div>
 
-          <ReviewList />
+          <ReviewList reviews={pendingReviews} limit={5} />
         </section>
 
         {/* Upcoming sessions */}

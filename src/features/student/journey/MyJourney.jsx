@@ -8,6 +8,7 @@ import AchievementList from "./components/AchievementList";
 import Button from "../../../components/ui/Button";
 
 import { useStudentJourney } from "./hooks";
+import { useNavigate } from "react-router-dom";
 
 const LEVEL_LABELS = {
   LEVEL_1_EXPOSED: "Level 1 — Exposed",
@@ -24,6 +25,7 @@ const LEVEL_LABELS = {
 
 export default function MyJourney() {
   const { data: journeyData, isLoading, isError, error } = useStudentJourney();
+  const navigate = useNavigate();
 
   const currentLevel = {
     label:
@@ -171,6 +173,7 @@ export default function MyJourney() {
 
         <Button
           size="lg"
+          onClick={() => navigate("/student/milestones")}
           className="w-full whitespace-nowrap rounded-[11.873px] bg-[#0a3b25] font-semibold text-white hover:bg-[#082f20] sm:w-auto"
         >
           View Milestones →

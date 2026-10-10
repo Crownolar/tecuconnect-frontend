@@ -8,7 +8,12 @@ import StatusBadge from "../../../components/shared/StatusBadge";
 import Loading from "../../../components/ui/Loading";
 import { useAssignedStudents } from "../hooks";
 
-const statusMap = { on_track: "approved", needs_attention: "needs_changes" };
+const statusMap = {
+  on_track: "approved",
+  needs_attention: "needs_changes",
+  ACTIVE: "approved",
+  active: "approved",
+};
 
 export default function MentorStudents() {
   const [query, setQuery] = useState("");
@@ -18,7 +23,9 @@ export default function MentorStudents() {
     const term = query.trim().toLowerCase();
     if (!term) return students;
     return students.filter((student) =>
-      [student.name, student.programme, student.level].some((value) => value.toLowerCase().includes(term)),
+      [student.name, student.programme, student.level].some((value) =>
+        String(value ?? "").toLowerCase().includes(term),
+      ),
     );
   }, [query, students]);
 

@@ -16,7 +16,7 @@ const createApiError = (response, data) => {
   const error = new Error(
     data?.message ||
       data?.error ||
-      `Request failed with status ${response.status}`
+      `Request failed with status ${response.status}`,
   );
 
   error.status = response.status;
@@ -25,21 +25,43 @@ const createApiError = (response, data) => {
   return error;
 };
 
+const buildUrl = (endpoint, params) => {
+  if (!params || Object.keys(params).length === 0) {
+    return endpoint;
+  }
+
+  const query = new URLSearchParams(
+    Object.entries(params).filter(
+      ([, value]) => value !== undefined && value !== null && value !== "",
+    ),
+  ).toString();
+
+  if (!query) return endpoint;
+
+  return `${endpoint}${endpoint.includes("?") ? "&" : "?"}${query}`;
+};
+
 const request = async (endpoint, options = {}) => {
   const token = tokenStorage.get();
 
+  const { params, headers: optionHeaders, ...fetchOptions } = options;
+
   const headers = {
     "Content-Type": "application/json",
-    ...(options.headers || {}),
+    ...(optionHeaders || {}),
   };
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
+  const response = await fetch(`${API_BASE_URL}${buildUrl(endpoint, params)}`, {
+    ...fetchOptions,
+    cache: "no-store",
+    headers: {
+      ...headers,
+      "Cache-Control": "no-cache",
+    },
   });
 
   const data = await parseResponse(response);

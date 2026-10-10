@@ -1,41 +1,35 @@
-import {
-  getNotifications,
-  addNotification,
-  markNotificationAsRead,
-} from "../../../mocks/notifications";
-
 import { apiClient } from "../../../services/api/apiClient";
 
-const USE_MOCK_API =
-  import.meta.env.VITE_USE_MOCK_API !== "false";
-
 export const notificationsService = {
-  async getNotifications() {
-    if (USE_MOCK_API) {
-      return getNotifications("student-001");
-    }
+  async getNotifications(params = {}) {
+    const response = await apiClient.get("/notifications", {
+      params,
+    });
 
-    return apiClient.get("/student/notifications");
+    return {
+      data: response?.data ?? [],
+      meta: response?.meta ?? null,
+      unread: response?.unread ?? 0,
+    };
+  },
+
+  async getUnreadCount() {
+    const response = await apiClient.get("/notifications/unread-count");
+
+    return response?.data ?? { unread: 0 };
   },
 
   async markAsRead(notificationId) {
-    if (USE_MOCK_API) {
-      return markNotificationAsRead(notificationId);
-    }
-
-    return apiClient.patch(
-      `/student/notifications/${notificationId}/read`,
+    const response = await apiClient.patch(
+      `/notifications/${notificationId}/read`,
     );
+
+    return response?.data ?? null;
   },
 
-  async createNotification(payload) {
-    if (USE_MOCK_API) {
-      return addNotification(payload);
-    }
+  async markAllAsRead() {
+    const response = await apiClient.patch("/notifications/read-all");
 
-    return apiClient.post(
-      "/notifications",
-      payload,
-    );
+    return response?.data ?? null;
   },
 };

@@ -70,7 +70,9 @@ export const authService = {
     try {
       const response = await apiClient.get("/auth/me");
 
-      return unwrapData(response);
+      const payload = unwrapData(response);
+
+      return payload?.user ?? payload;
     } catch (error) {
       if (error.status === 401) {
         tokenStorage.clear();

@@ -1,26 +1,76 @@
-// Future mentorship API requests will live here.
+import { apiClient } from "../../../services/api/apiClient";
 
-export const getMentorshipOverview = async () => {
-  // Example future API:
-  // return apiClient.get("/student/mentorship");
+const unwrapData = (response) => response?.data ?? response;
 
-  return null;
-};
+export const mentorshipService = {
+  async getOverview() {
+    const response = await apiClient.get("/mentorship/me");
+    return unwrapData(response);
+  },
 
-export const getMentors = async () => {
-  // return apiClient.get("/mentors");
+  async getMentors(params = {}) {
+    const response = await apiClient.get("/mentors", {
+      params,
+    });
 
-  return null;
-};
+    return {
+      data: response?.data ?? [],
+      meta: response?.meta ?? null,
+    };
+  },
 
-export const getRecentSessions = async () => {
-  // return apiClient.get("/student/mentorship/sessions");
+  async getMentor(mentorId) {
+    const response = await apiClient.get(`/mentors/${mentorId}`);
+    return response?.data ?? response;
+  },
 
-  return null;
-};
+  async getRequests(params = {}) {
+    const response = await apiClient.get("/mentorship/requests", {
+      params,
+    });
 
-export const requestMentorship = async () => {
-  // return apiClient.post("/mentorship/request", { mentorId });
+    return {
+      data: response?.data ?? [],
+      meta: response?.meta ?? null,
+    };
+  },
 
-  return null;
+  async requestMentorship(payload) {
+    console.log("REQUEST MENTORSHIP PAYLOAD:", payload);
+
+    try {
+      const response = await apiClient.post("/mentorship/requests", payload);
+
+      return unwrapData(response);
+    } catch (error) {
+      console.error("REQUEST MENTORSHIP ERROR:", {
+        payload,
+        status: error.status,
+        data: error.data,
+        message: error.message,
+      });
+
+      throw error;
+    }
+  },
+
+  async getSessions(params = {}) {
+    const response = await apiClient.get("/mentorship/sessions", {
+      params,
+    });
+
+    return {
+      data: response?.data ?? [],
+      meta: response?.meta ?? null,
+    };
+  },
+
+  async updateSession(sessionId, payload) {
+    const response = await apiClient.patch(
+      `/mentorship/sessions/${sessionId}`,
+      payload,
+    );
+
+    return unwrapData(response);
+  },
 };
