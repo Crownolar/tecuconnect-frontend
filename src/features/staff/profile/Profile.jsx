@@ -101,13 +101,6 @@ export default function Profile() {
 
           <ProfessionalInformation user={profile} />
 
-          <MentorshipOverview
-            students={students}
-            pendingReviews={pendingReviews}
-            sessions={sessions}
-            assessments={assessments}
-          />
-
           {studentsQuery.isError ||
           reviewsQuery.isError ||
           sessionsQuery.isError ||
