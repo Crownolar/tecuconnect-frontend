@@ -1,14 +1,19 @@
-export const getProfile = async () => {
-  // Future API integration
-  return null;
-};
+import { apiClient } from "../../../services/api/apiClient";
 
-export const updateProfile = async () => {
-  // Future API integration
-  return null;
-};
+const unwrapData = (response) => response?.data ?? response;
 
-export const updateProfileSettings = async () => {
-  // Future API integration
-  return null;
+export const profileService = {
+  async getProfile() {
+    const response = await apiClient.get("/students/me");
+    return unwrapData(response);
+  },
+
+  async updateProfile(payload) {
+    const response = await apiClient.patch(
+      "/students/me",
+      payload,
+    );
+
+    return unwrapData(response);
+  },
 };

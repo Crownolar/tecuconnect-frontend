@@ -1,8 +1,4 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { authService } from "../features/auth/auth.service";
 
@@ -17,17 +13,15 @@ export const AuthProvider = ({ children }) => {
 
     const restoreSession = async () => {
       try {
-        const currentUser =
-          await authService.getCurrentUser();
+        const currentUser = await authService.getCurrentUser();
+
+        console.log("RESTORED USER:", currentUser);
 
         if (mounted) {
           setUser(currentUser);
         }
       } catch (error) {
-        console.error(
-          "Failed to restore authentication session:",
-          error
-        );
+        console.error("Failed to restore authentication session:", error);
 
         if (mounted) {
           setUser(null);
@@ -47,8 +41,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (credentialsOrUser) => {
-    const authenticatedUser =
-      await authService.login(credentialsOrUser);
+    const authenticatedUser = await authService.login(credentialsOrUser);
 
     setUser(authenticatedUser);
 

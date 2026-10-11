@@ -1,9 +1,4 @@
-import {
-  BarChart3,
-  Gauge,
-  Award,
-  ChartNoAxesCombined,
-} from "lucide-react";
+import { BarChart3, Gauge, Award, ChartNoAxesCombined } from "lucide-react";
 
 import MetricCard from "./components/MetricCard";
 import JourneyTracker from "./components/JourneyTracker";
@@ -12,6 +7,7 @@ import ActivityTimeline from "./components/ActivityTimeline";
 import MentorshipCard from "./components/MentorshipCard";
 
 import { useStudentDashboard } from "./hooks";
+import { useNavigate } from "react-router-dom";
 
 function formatLevel(level) {
   if (!level) return "—";
@@ -38,10 +34,7 @@ function formatDateTime(value) {
 }
 
 function getActivityStatus(type) {
-  if (
-    type === "MILESTONE_VERIFIED" ||
-    type === "LEVEL_UPGRADE"
-  ) {
+  if (type === "MILESTONE_VERIFIED" || type === "LEVEL_UPGRADE") {
     return "success";
   }
 
@@ -62,8 +55,7 @@ function getNextAction(data) {
   if (!milestones) {
     return {
       title: "Continue your entrepreneurial journey",
-      description:
-        "Complete your next available programme activity.",
+      description: "Complete your next available programme activity.",
       action: "View Milestones",
     };
   }
@@ -73,7 +65,7 @@ function getNextAction(data) {
       title: "Changes requested on a milestone",
       description:
         "Review the mentor feedback and update your milestone evidence.",
-      action: "Review Milestone",
+      action: "View Milestone",
     };
   }
 
@@ -95,12 +87,9 @@ function getNextAction(data) {
 }
 
 export default function StudentDashboard() {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useStudentDashboard();
+  const { data, isLoading, isError, error } = useStudentDashboard();
+
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -134,9 +123,7 @@ export default function StudentDashboard() {
   if (isError) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-5">
-        <h2 className="font-semibold text-red-800">
-          Unable to load dashboard
-        </h2>
+        <h2 className="font-semibold text-red-800">Unable to load dashboard</h2>
 
         <p className="mt-1 text-sm text-red-600">
           {error?.message ||
@@ -153,12 +140,7 @@ export default function StudentDashboard() {
   const recentActivity = dashboard.recentActivity ?? [];
   const upcomingSessions = dashboard.upcomingSessions ?? [];
 
-  const metricIcons = [
-    BarChart3,
-    Gauge,
-    Award,
-    ChartNoAxesCombined,
-  ];
+  const metricIcons = [BarChart3, Gauge, Award, ChartNoAxesCombined];
 
   const metrics = [
     {
@@ -175,13 +157,11 @@ export default function StudentDashboard() {
       id: "teis",
       label: "TEIS Score",
       value:
-        dashboard.teisScore !== null &&
-        dashboard.teisScore !== undefined
+        dashboard.teisScore !== null && dashboard.teisScore !== undefined
           ? `${dashboard.teisScore}/100`
           : "—",
       subtitle:
-        dashboard.teisDelta !== null &&
-        dashboard.teisDelta !== undefined
+        dashboard.teisDelta !== null && dashboard.teisDelta !== undefined
           ? `${
               dashboard.teisDelta >= 0 ? "+" : ""
             }${dashboard.teisDelta} change`
@@ -217,14 +197,11 @@ export default function StudentDashboard() {
           upcomingSession.sessionType ||
           "Mentorship Session",
         date: formatDateTime(
-          upcomingSession.scheduledFor ||
-            upcomingSession.sessionDate,
+          upcomingSession.scheduledFor || upcomingSession.sessionDate,
         ),
         time: "",
         mentor: {
-          name:
-            upcomingSession.mentor?.name ||
-            "TEC Mentor",
+          name: upcomingSession.mentor?.name || "TEC Mentor",
           role: "TEC Mentor",
         },
       }
@@ -250,13 +227,7 @@ export default function StudentDashboard() {
         {metrics.map((metric, index) => {
           const Icon = metricIcons[index];
 
-          return (
-            <MetricCard
-              key={metric.id}
-              {...metric}
-              icon={Icon}
-            />
-          );
+          return <MetricCard key={metric.id} {...metric} icon={Icon} />;
         })}
       </section>
 
@@ -273,16 +244,17 @@ export default function StudentDashboard() {
       {/* Next action */}
       <NextActionCard
         {...nextAction}
-        onAction={() => {
-          window.location.href = "/student/milestones";
-        }}
+        onAction={() => navigate("/student/milestones")}
       />
 
       {/* Activity + mentorship */}
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <ActivityTimeline activities={activities} />
 
-        <MentorshipCard mentorship={mentorship} />
+        <MentorshipCard
+          mentorship={mentorship}
+          onViewSession={() => navigate("/student/mentorship")}
+        />
       </section>
     </div>
   );

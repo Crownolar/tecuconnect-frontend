@@ -6,7 +6,7 @@ const iconMap = {
   "upcoming-sessions": CalendarDays,
 };
 
-const MentorshipStats = ({ stats }) => {
+const MentorshipStats = ({ stats = [] }) => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       {stats.map((stat) => {

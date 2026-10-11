@@ -1,13 +1,20 @@
 import { PencilLine } from "lucide-react";
 
 const ProfileIdentityCard = ({ profile, onEdit }) => {
-  
   return (
     <section className="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
       <div className="flex flex-col gap-5 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex min-w-0 items-center gap-4">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-emerald-500 text-xl font-bold text-white shadow-sm">
-            {profile.initials}
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-emerald-600 to-emerald-500 text-xl font-bold text-white shadow-sm">
+            {profile.avatarUrl ? (
+              <img
+                src={profile.avatarUrl}
+                alt={profile.name}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              profile.initials
+            )}
           </div>
 
           <div className="min-w-0">
@@ -42,18 +49,16 @@ const ProfileIdentityCard = ({ profile, onEdit }) => {
               </span>
             </div>
 
-            <p className="mt-1 text-sm text-text-secondary">
-              {profile.email}
-            </p>
+            <p className="mt-1 text-sm text-text-secondary">{profile.email}</p>
           </div>
         </div>
 
         <button
           type="button"
           onClick={onEdit}
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition hover:bg-primary-dark"
+          className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-[#0A3B25] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#0F5132]"
         >
-          <PencilLine className="h-4 w-4" />
+          <PencilLine className="mr-2 h-4 w-4" />
           Edit Profile
         </button>
       </div>

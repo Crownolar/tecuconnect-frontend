@@ -1,5 +1,6 @@
 import { ArrowRight, FileCheck2 } from "lucide-react";
 import { Link } from "react-router-dom";
+
 import Card from "../../../components/ui/Card";
 import StatusBadge from "../../../components/shared/StatusBadge";
 
@@ -11,8 +12,14 @@ export default function ReviewList({ reviews = [], limit }) {
       <Card>
         <div className="py-8 text-center">
           <FileCheck2 className="mx-auto text-text-secondary" size={24} />
-          <p className="mt-3 text-sm font-semibold text-text-primary">No pending reviews</p>
-          <p className="mt-1 text-xs text-text-secondary">You're up to date with milestone verification.</p>
+
+          <p className="mt-3 text-sm font-semibold text-text-primary">
+            No pending reviews
+          </p>
+
+          <p className="mt-1 text-xs text-text-secondary">
+            You're up to date with milestone verification.
+          </p>
         </div>
       </Card>
     );
@@ -32,20 +39,45 @@ export default function ReviewList({ reviews = [], limit }) {
               <th className="px-5 py-3 text-right">Action</th>
             </tr>
           </thead>
+
           <tbody className="divide-y divide-border">
             {items.map((review) => (
-              <tr key={review.id} className="text-sm">
-                <td className="px-5 py-4 font-semibold text-text-primary">{review.student}</td>
-                <td className="px-5 py-4 text-text-primary">{review.milestone}</td>
-                <td className="px-5 py-4 text-text-secondary">{review.category}</td>
-                <td className="px-5 py-4 text-text-secondary">{review.submittedAt}</td>
-                <td className="px-5 py-4"><StatusBadge status={review.status} /></td>
+              <tr
+                key={review.id}
+                className="text-sm transition-colors hover:bg-slate-50"
+              >
+                <td className="px-5 py-4 font-semibold text-text-primary">
+                  {review.student || "Unknown student"}
+                </td>
+
+                <td className="px-5 py-4 text-text-primary">
+                  {review.milestone || review.title || "Untitled milestone"}
+                </td>
+
+                <td className="px-5 py-4 text-text-secondary">
+                  {review.category || "—"}
+                </td>
+
+                <td className="px-5 py-4 text-text-secondary">
+                  {review.submittedAt || "—"}
+                </td>
+
+                <td className="px-5 py-4">
+                  <StatusBadge status={review.status} />
+                </td>
+
                 <td className="px-5 py-4 text-right">
                   <Link
-                    to={`/mentor/reviews?claim=${review.id}`}
+                    to={`/mentor/reviews?claim=${encodeURIComponent(
+                      review.id,
+                    )}`}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                    aria-label={`Review ${
+                      review.milestone || review.title || "milestone"
+                    } for ${review.student || "student"}`}
                   >
-                    Review <ArrowRight size={14} />
+                    Review
+                    <ArrowRight size={14} />
                   </Link>
                 </td>
               </tr>
