@@ -26,9 +26,11 @@ import MentorProfile from "../features/mentor/profile";
 import StaffDashboard from "../features/staff/dashboard/StaffDashboard";
 import StaffStudents from "../features/staff/students/StaffStudents";
 import StaffAttendance from "../features/staff/attendance/StaffAttendance";
+import StaffNotifications from "../features/staff/notifications/Notifications";
 import StaffFlags from "../features/staff/flags/StaffFlags";
 import StaffMilestones from "../features/staff/milestones/StaffMilestones";
 import StaffReports from "../features/staff/reports/StaffReports";
+import StaffProfile from "../features/staff/profile";
 
 import AdminDashboard from "../features/admin/dashboard/AdminDashboard";
 import AdminUsers from "../features/admin/users/AdminUsers";
@@ -51,7 +53,7 @@ import AdminStudentDetail from "@/features/admin/students/AdminStudentDetail";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/auth" replace />,
+    element: <Navigate to='/auth' replace />,
   },
   {
     path: "/auth",
@@ -63,9 +65,9 @@ const router = createBrowserRouter([
     element: <RoleProtectedRoute allowedRoles={["STUDENT"]} />,
     children: [
       {
-        element: <RoleLayout role="STUDENT" />,
+        element: <RoleLayout role='STUDENT' />,
         children: [
-          { index: true, element: <Navigate to="dashboard" replace /> },
+          { index: true, element: <Navigate to='dashboard' replace /> },
           { path: "dashboard", element: <StudentDashboard /> },
           { path: "journey", element: <MyJourney /> },
           { path: "milestones", element: <Milestones /> },
@@ -90,9 +92,9 @@ const router = createBrowserRouter([
     element: <RoleProtectedRoute allowedRoles={["MENTOR"]} />,
     children: [
       {
-        element: <RoleLayout role="MENTOR" />,
+        element: <RoleLayout role='MENTOR' />,
         children: [
-          { index: true, element: <Navigate to="dashboard" replace /> },
+          { index: true, element: <Navigate to='dashboard' replace /> },
           { path: "dashboard", element: <MentorDashboard /> },
           { path: "students", element: <MentorStudents /> },
           { path: "reviews", element: <MilestoneReviews /> },
@@ -121,9 +123,9 @@ const router = createBrowserRouter([
     element: <RoleProtectedRoute allowedRoles={["STAFF"]} />,
     children: [
       {
-        element: <RoleLayout role="STAFF" />,
+        element: <RoleLayout role='STAFF' />,
         children: [
-          { index: true, element: <Navigate to="dashboard" replace /> },
+          { index: true, element: <Navigate to='dashboard' replace /> },
           { path: "dashboard", element: <StaffDashboard /> },
           {
             path: "students",
@@ -147,23 +149,11 @@ const router = createBrowserRouter([
           },
           {
             path: "notifications",
-            element: (
-              <PortalPlaceholder
-                role="Staff"
-                title="Notifications"
-                description="Review operational alerts and actions requiring attention."
-              />
-            ),
+            element: <StaffNotifications />,
           },
           {
             path: "profile",
-            element: (
-              <PortalPlaceholder
-                role="Staff"
-                title="Profile"
-                description="Manage staff profile information and account settings."
-              />
-            ),
+            element: <StaffProfile />,
           },
         ],
       },
@@ -174,11 +164,11 @@ const router = createBrowserRouter([
     element: <RoleProtectedRoute allowedRoles={["ADMIN"]} />,
     children: [
       {
-        element: <RoleLayout role="ADMIN" />,
+        element: <RoleLayout role='ADMIN' />,
         children: [
           {
             index: true,
-            element: <Navigate to="dashboard" replace />,
+            element: <Navigate to='dashboard' replace />,
           },
 
           {
@@ -232,11 +222,11 @@ const router = createBrowserRouter([
     element: <RoleProtectedRoute allowedRoles={["STAKEHOLDER"]} />,
     children: [
       {
-        element: <RoleLayout role="STAKEHOLDER" />,
+        element: <RoleLayout role='STAKEHOLDER' />,
         children: [
           {
             index: true,
-            element: <Navigate to="dashboard" replace />,
+            element: <Navigate to='dashboard' replace />,
           },
 
           {
@@ -264,7 +254,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to="/auth" replace />,
+    element: <Navigate to='/auth' replace />,
   },
 ]);
 
