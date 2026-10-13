@@ -42,11 +42,30 @@ export const staffService = {
     return apiClient.get("/attendance/summary");
   },
   async getMilestones() {
+    // Staff listing uses the collection endpoint; /milestones/me is Student-only.
     if (USE_MOCK_API) {
-      return staffAttendance;
+      return [];
     }
 
     return apiClient.get("/milestones");
+  },
+
+  async reviewMilestone({ id, action, feedback }) {
+    if (!["VERIFY", "REJECT", "FLAG"].includes(action)) {
+      throw new Error("Unsupported milestone review action.");
+    }
+    const body = { action };
+    if (feedback) body.feedback = feedback;
+    return apiClient.patch(`/milestones/${encodeURIComponent(id)}/verify`, body);
+  },
+
+  async resolveMilestone({ id, action, feedback }) {
+    if (!["VERIFY", "REJECT"].includes(action)) {
+      throw new Error("Unsupported milestone resolution action.");
+    }
+    const body = { action };
+    if (feedback) body.feedback = feedback;
+    return apiClient.patch(`/milestones/${encodeURIComponent(id)}/resolve`, body);
   },
 
   async getReports() {

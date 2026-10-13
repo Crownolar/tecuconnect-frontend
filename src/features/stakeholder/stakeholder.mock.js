@@ -1,50 +1,43 @@
 export const stakeholderDashboard = {
-  totalStudents: 1248,
-  activeStudents: 1092,
-  completionRate: 72,
-  averageAttendance: 86,
-  milestonesCompleted: 2846,
-  activeMentors: 86,
-  departmentsReached: 18,
-  venturesSupported: 314,
+  students: 11,
+  activeStudents: 11,
+  completionRate: 72.7,
+  attendanceRate: 80,
+  verifiedMilestones: 28,
+  mentors: 5,
+  departments: 47,
+  venturesSupported: 5,
 };
 
 export const stakeholderImpact = {
-  studentsEnrolled: 1248,
-  studentsActive: 1092,
-  studentsCompleted: 898,
-
-  milestoneCompletionRate: 74,
-  averageProgrammeAttendance: 86,
-
-  venturesSupported: 314,
-  venturesValidated: 186,
-  venturesLaunched: 74,
-
-  mentorshipSessions: 1832,
-  activeMentors: 86,
-
-  departmentParticipation: [
-    {
-      department: "Business Administration",
-      students: 218,
+  funnel: {
+    enrolled: 11,
+    active: 11,
+    attended80: 8,
+    certifiedCompetence: 8,
+    appliedCommercially: 5,
+    generatedIncome: 3,
+    sustainableEnterprises: 0,
+    createdEmployment: 0,
+    spinoffs: 0,
+    jobsCreated: 10,
+  },
+  participation: {
+    completionRate: 72.7,
+    attendanceRate: 80,
+    mentorshipEngagement: 21,
+    ventures: {
+      supported: 5,
+      validated: 2,
+      launched: 5,
     },
-    {
-      department: "Computer Science",
-      students: 196,
-    },
-    {
-      department: "Accounting",
-      students: 174,
-    },
-    {
-      department: "Economics",
-      students: 151,
-    },
-    {
-      department: "Engineering",
-      students: 143,
-    },
+  },
+  departments: [
+    { id: "mock-business-admin", name: "Business Administration", faculty: "Management Sciences", students: 1 },
+    { id: "mock-computer-engineering", name: "Computer Engineering", faculty: "Engineering & Technology", students: 1 },
+    { id: "mock-computer-science", name: "Computer Science", faculty: "Science", students: 2 },
+    { id: "mock-economics", name: "Economics", faculty: "Social Sciences", students: 1 },
+    { id: "mock-mass-communication", name: "Mass Communication", faculty: "Communication & Information Sciences", students: 1 },
   ],
 };
 

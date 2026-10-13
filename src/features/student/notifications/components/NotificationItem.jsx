@@ -1,92 +1,111 @@
-import { Circle, UserRoundCheck, BellDot, Ribbon } from "lucide-react";
+import {
+  ArrowUpRight,
+  Bell,
+  CalendarClock,
+  CheckCircle2,
+  Info,
+  ShieldAlert,
+  Trophy,
+} from "lucide-react";
 
-const icons = {
-  info: BellDot,
-  success: UserRoundCheck,
-  muted: Ribbon,
+const TYPE_META = {
+  MILESTONE_PENDING: { label: "Milestone pending", Icon: Bell },
+  MILESTONE_VERIFIED: { label: "Milestone verified", Icon: CheckCircle2 },
+  MILESTONE: { label: "Milestone update", Icon: Trophy },
+  LEVEL_UPGRADE: { label: "Level upgrade", Icon: Trophy },
+  MENTOR_SESSION_REMINDER: { label: "Session reminder", Icon: CalendarClock },
+  MENTORSHIP: { label: "Mentorship update", Icon: CalendarClock },
+  ATTENDANCE_ALERT: { label: "Attendance alert", Icon: ShieldAlert },
+  SYSTEM: { label: "System notification", Icon: Info },
 };
 
-const palette = {
-  success: "bg-emerald-50 text-emerald-700",
-  info: "bg-emerald-50 text-emerald-700",
-  muted: "bg-slate-200/70 text-slate-500",
+const getType = (notification) =>
+  String(notification?.type ?? notification?.category ?? notification?.notificationType ?? "SYSTEM").toUpperCase();
+
+const formatDateTime = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
 };
 
-const iconColors = {
-  info: "#eab308",
-  muted: "#64748b",
-  success: "#16a34a",
+const isUnread = (notification) => {
+  if (typeof notification?.read === "boolean") return !notification.read;
+  if (typeof notification?.isRead === "boolean") return !notification.isRead;
+  if (notification?.readAt !== undefined) return notification.readAt === null;
+  return false;
 };
 
-const NotificationIcon = ({ tone }) => {
-  const Icon = icons[tone] ?? BellDot;
+export default function NotificationItem({ notification, onOpen, isReading }) {
+  const type = getType(notification);
+  const meta = TYPE_META[type] ?? { label: type.replace(/_/g, " ").toLowerCase(), Icon: Info };
+  const Icon = meta.Icon;
+  const unread = isUnread(notification);
+  const timestamp = notification?.createdAt ?? notification?.timestamp ?? notification?.sentAt;
 
-  return (
-    <div
-      className={`grid h-8 w-8 place-items-center rounded-lg ${
-        palette[tone] ?? palette.info
-      }`}
-    >
-      <Icon
-        size={16}
-        color={iconColors[tone] ?? iconColors.info}
-      />
-    </div>
-  );
-};
-
-const NotificationItem = ({ item }) => {
   return (
     <article
-      className={`grid gap-3 rounded-2xl border border-slate-200/80 bg-white p-4 sm:gap-4 md:grid-cols-[26px_auto_minmax(0,1fr)_auto] md:py-5 ${
-        item.tone === "muted"
-          ? "text-slate-500"
-          : "text-slate-800"
+      role="button"
+      tabIndex={0}
+      onClick={() => onOpen(notification)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpen(notification);
+        }
+      }}
+      className={`group cursor-pointer rounded-xl border p-4 transition focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+        unread
+          ? "border-primary/20 bg-primary/[0.035] hover:border-primary/40 hover:bg-primary/[0.06]"
+          : "border-border bg-white hover:border-slate-300 hover:bg-slate-50"
       }`}
     >
-      {/* Unread indicator */}
-      <span className="flex items-start justify-center pt-1">
-        {item.unread && (
-          <Circle
-            size={8}
-            fill="currentColor"
-            className="text-emerald-600"
-          />
-        )}
-      </span>
+      <div className="flex gap-3">
+        <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+          unread ? "bg-primary/10 text-primary" : "bg-slate-100 text-slate-600"
+        }`}>
+          <Icon className="h-4 w-4" />
+        </div>
 
-      {/* Notification icon */}
-      <div className="flex items-start">
-        <NotificationIcon tone={item.tone} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="font-semibold text-text-primary">
+                  {notification?.title || meta.label}
+                </h3>
+                {unread ? (
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+                    Unread
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-1 line-clamp-2 text-sm leading-6 text-text-secondary">
+                {notification?.message ?? notification?.description ?? notification?.body ?? notification?.content ?? "You have a new notification."}
+              </p>
+            </div>
+            <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition group-hover:text-primary" />
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-secondary">
+            <span>{meta.label}</span>
+            {timestamp ? (
+              <>
+                <span aria-hidden="true">•</span>
+                <time dateTime={timestamp}>{formatDateTime(timestamp)}</time>
+              </>
+            ) : null}
+            {isReading ? (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>Opening…</span>
+              </>
+            ) : (
+              <span className="ml-auto hidden font-medium text-primary sm:inline">View details</span>
+            )}
+          </div>
+        </div>
       </div>
-
-      {/* Content */}
-      <div className="min-w-0">
-        <span
-          className={`mb-1.5 inline-block text-xs font-semibold uppercase tracking-[0.12em] ${
-            item.tone === "muted"
-              ? "text-slate-500"
-              : "text-emerald-700"
-          }`}
-        >
-          {item.category}
-        </span>
-
-        <h3 className="text-sm font-semibold leading-5 text-slate-900">
-          {item.title}
-        </h3>
-
-        <p className="mt-1.5 text-sm leading-5 text-slate-600">
-          {item.text}
-        </p>
-      </div>
-
-      {/* Time */}
-      <time className="whitespace-nowrap text-xs text-slate-500 md:pt-1.5">
-        {item.time}
-      </time>
     </article>
   );
-};
-
-export default NotificationItem;
+}

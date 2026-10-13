@@ -29,8 +29,30 @@ export function useStaffStudents() {
 }
 export function useStaffMilestones() {
   return useQuery({
-    queryKey: staffKeys.students(),
+    queryKey: staffKeys.milestones(),
     queryFn: staffService.getMilestones,
+  });
+}
+
+export function useReviewStaffMilestone() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: staffService.reviewMilestone,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: staffKeys.milestones() });
+      queryClient.invalidateQueries({ queryKey: staffKeys.dashboard() });
+    },
+  });
+}
+
+export function useResolveStaffMilestone() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: staffService.resolveMilestone,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: staffKeys.milestones() });
+      queryClient.invalidateQueries({ queryKey: staffKeys.dashboard() });
+    },
   });
 }
 

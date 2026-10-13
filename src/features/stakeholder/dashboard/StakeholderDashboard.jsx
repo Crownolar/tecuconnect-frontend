@@ -23,10 +23,10 @@ export default function StakeholderDashboard() {
     );
   }
 
-  if (isError) {
+  if (isError || !data) {
     return (
       <div className="p-6 text-sm text-red-600">
-        Unable to load stakeholder dashboard.
+        Unable to load stakeholder dashboard. Please try again.
       </div>
     );
   }
